@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { LoginButton } from "./LoginFormStyles";
 
 function LoginForm() {
 	const [showPassword, setShowPassword] = useState(false);

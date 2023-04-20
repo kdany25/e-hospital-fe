@@ -19,3 +19,4 @@ export const LoginButton = styled.div`
 		color: #6c63ff;
 	}
 `;
+
