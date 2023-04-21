@@ -22,7 +22,6 @@ function App() {
 			<Switch>
 				{!user ? (
 					<>
-						<Navbar />
 						<div className="container">
 							<SideBar />
 							<Route exact path="/patients">

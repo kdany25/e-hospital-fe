@@ -11,24 +11,16 @@ function LoginForm() {
 	return (
 		<div
 			style={{
-				width: "40%",
+				width: "35%",
 				margin: 10,
-
-        height: '90vh'
+				marginTop: "5%",
+				height: "90vh",
+	
 			}}
 		>
 			<div>
-				<h1 style={{ textAlign: "center" }}>Log in</h1>
-				<div
-					style={
-						{
-							// display: 'flex',
-							// justifyContent: 'center',
-							// alignItems: 'center',
-							// border: "2px solid green",
-						}
-					}
-				>
+				<h1 style={{ textAlign: "center", fontFamily: "Montserrat, sans-serif"  }}>Log in</h1>
+				<div style={{ marginLeft: "5%" }}>
 					<div>
 						<div style={{ padding: "10px" }}>
 							<div style={{ marginBottom: 10 }}>
@@ -41,8 +33,8 @@ function LoginForm() {
 								style={{
 									borderRadius: "5px",
 									backgroundColor: "#f0f0f2",
-									padding: 10,
-									width: "60%",
+									padding: 15,
+									width: "80%",
 									border: "1px solid #e3e3e6",
 								}}
 							/>
@@ -60,8 +52,8 @@ function LoginForm() {
 									style={{
 										borderRadius: "5px",
 										backgroundColor: "#f0f0f2",
-										padding: 10,
-										width: "60%",
+										padding: 15,
+										width: "80%",
 										border: "1px solid #e3e3e6",
 									}}
 								/>
@@ -70,7 +62,7 @@ function LoginForm() {
 										style={{
 											position: "absolute",
 											top: "50%",
-											right: "40%",
+											right: "20%",
 											transform: "translateY(-50%)",
 											cursor: "pointer",
 										}}
@@ -81,7 +73,7 @@ function LoginForm() {
 										style={{
 											position: "absolute",
 											top: "50%",
-											right: "40%",
+											right: "20%",
 											transform: "translateY(-50%)",
 											cursor: "pointer",
 										}}
@@ -90,19 +82,21 @@ function LoginForm() {
 								)}
 							</div>
 						</div>
+
 						<div style={{ padding: 10 }}>
 							<button
 								style={{
-									backgroundColor: "#6c63ff",
+									backgroundColor: "#2596be",
 									color: "white",
-									padding: 15,
+									padding: 18,
 									borderRadius: "5px",
 									border: "none",
 									cursor: "pointer",
-									width: "64%",
+									width: "86%",
+									marginTop: "5%",
 								}}
 							>
-								Click me
+								Log in
 							</button>
 						</div>
 					</div>

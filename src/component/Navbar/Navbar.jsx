@@ -24,23 +24,6 @@ const Navbar = () => {
 					<NavIcon />
 					e-hospital
 				</NavLogo>
-				<NavMenu onClick={handleClick} click={click}>
-					<NavItem>
-						<NavLink to="/" onClick={closeMobileMenu}>
-							Home
-						</NavLink>
-					</NavItem>
-					<NavItem>
-						<NavLink to="/contact" onClick={closeMobileMenu}>
-							Contact Us
-						</NavLink>
-					</NavItem>
-					<NavItem>
-						<NavLink to="/help" onClick={closeMobileMenu}>
-							Help
-						</NavLink>
-					</NavItem>
-				</NavMenu>
 				<NavBtn>
 					<NavBtnLink to="/login" onClick={closeMobileMenu}>
 						Login

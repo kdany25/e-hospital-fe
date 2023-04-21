@@ -1,6 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import {
+	Container,
+	Wrapper,
+	FormWrapper,
+	SignUpTitle,
+	Element,
+	Label,
+	Inputs,
+	Select,
+	Faeye,
+	buttonStyle,
+	buttonHolder,
+} from "./SignUpFormStyles";
 
 function SignUpForm() {
 	const [showPassword, setShowPassword] = useState(false);
@@ -9,177 +22,122 @@ function SignUpForm() {
 		setShowPassword((prevState) => !prevState);
 	};
 	return (
-		<div
-			style={{
-				width: "40%",
-				margin: 10,
-
-				height: "90vh",
-			}}
-		>
-			<div>
-				<h1 style={{ textAlign: "center" }}>Sign Up</h1>
-				<div
-					style={
-						{
-							// display: 'flex',
-							// justifyContent: 'center',
-							// alignItems: 'center',
-							// border: "2px solid green",
-						}
-					}
-				>
-					<div>
-						<div style={{ padding: "10px" }}>
-							<div style={{ marginBottom: 10 }}>
+		<Container>
+			<Wrapper>
+				<SignUpTitle>Sign Up</SignUpTitle>
+				<FormWrapper>
+					<div style={{ width: "50%" }}>
+						<Element>
+							<Label>
 								<label htmlFor="email">Name:</label>
-							</div>
-							<input
+							</Label>
+							<Inputs
 								type="text"
 								id="name"
 								placeholder="Type your name"
-								style={{
-									borderRadius: "5px",
-									backgroundColor: "#f0f0f2",
-									padding: 10,
-									width: "60%",
-									border: "1px solid #e3e3e6",
-								}}
 							/>
-						</div>
-						<div style={{ padding: "10px" }}>
-							<div style={{ marginBottom: 10 }}>
+						</Element>
+						<Element>
+							<Label>
 								<label htmlFor="email">Username:</label>
-							</div>
-							<input
+							</Label>
+
+							<Inputs
 								type="text"
 								id="username"
 								placeholder="Type your username"
-								style={{
-									borderRadius: "5px",
-									backgroundColor: "#f0f0f2",
-									padding: 10,
-									width: "60%",
-									border: "1px solid #e3e3e6",
-								}}
 							/>
-						</div>
+						</Element>
 
-						<div style={{ padding: "10px" }}>
-							<div style={{ marginBottom: 10 }}>
+						<Element>
+							<Label>
 								<label htmlFor="email">Email:</label>
-							</div>
-							<input
+							</Label>
+
+							<Inputs
 								type="email"
 								id="email"
 								placeholder="Type your email"
-								style={{
-									borderRadius: "5px",
-									backgroundColor: "#f0f0f2",
-									padding: 10,
-									width: "60%",
-									border: "1px solid #e3e3e6",
-								}}
 							/>
-						</div>
+						</Element>
 
-						<div style={{ padding: "10px" }}>
-							<div style={{ marginBottom: 10 }}>
+						<Element>
+							<Label>
 								<label htmlFor="Phone">Phone:</label>
-							</div>
-							<input
+							</Label>
+
+							<Inputs
 								type="Phone"
 								id="Phone"
 								placeholder="Type your Phone"
-								style={{
-									borderRadius: "5px",
-									backgroundColor: "#f0f0f2",
-									padding: 10,
-									width: "60%",
-									border: "1px solid #e3e3e6",
-								}}
 							/>
-						</div>
-						<div style={{ padding: "10px" }}>
-							<div style={{ marginBottom: 10 }}>
-								<label htmlFor="Gender">Gender:</label>
-							</div>
-							<input
-								type="Gender"
-								id="Gender"
-								placeholder="Type your Gender"
-								style={{
-									borderRadius: "5px",
-									backgroundColor: "#f0f0f2",
-									padding: 10,
-									width: "60%",
-									border: "1px solid #e3e3e6",
-								}}
-							/>
-						</div>
+						</Element>
+					</div>
+					<div style={{ width: "50%" }}>
+						<Element>
+							<Label>
+								<label htmlFor="Phone">Age:</label>
+							</Label>
 
-						<div style={{ padding: "10px" }}>
-							<div style={{ marginBottom: 10 }}>
+							<Inputs
+								type="Phone"
+								id="Phone"
+								placeholder="Type your Phone"
+							/>
+						</Element>
+						<Element>
+							<Label>
+								<label htmlFor="Gender">Gender:</label>
+							</Label>
+
+							<Select>
+								<option value="MALE">MALE</option>
+								<option value="FEMALE">FEMALE</option>
+							</Select>
+						</Element>
+						<Element>
+							<Label>
+								<label htmlFor="Gender">Role:</label>
+							</Label>
+
+							<Select>
+								<option value="MALE">Patient</option>
+								<option value="FEMALE">Physian</option>
+								<option value="MALE">Pharmacist</option>
+							</Select>
+						</Element>
+
+						<Element>
+							<Label>
 								<label htmlFor="password">Password:</label>
-							</div>
+							</Label>
 
 							<div style={{ position: "relative" }}>
-								<input
+								<Inputs
 									type={showPassword ? "text" : "password"}
 									id="password"
 									placeholder="Type your password"
-									style={{
-										borderRadius: "5px",
-										backgroundColor: "#f0f0f2",
-										padding: 10,
-										width: "60%",
-										border: "1px solid #e3e3e6",
-									}}
 								/>
 								{showPassword ? (
 									<FaEyeSlash
-										style={{
-											position: "absolute",
-											top: "50%",
-											right: "40%",
-											transform: "translateY(-50%)",
-											cursor: "pointer",
-										}}
+										style={Faeye}
 										onClick={handleTogglePassword}
 									/>
 								) : (
 									<FaEye
-										style={{
-											position: "absolute",
-											top: "50%",
-											right: "40%",
-											transform: "translateY(-50%)",
-											cursor: "pointer",
-										}}
+										style={Faeye}
 										onClick={handleTogglePassword}
 									/>
 								)}
 							</div>
-						</div>
-						<div style={{ padding: 10 }}>
-							<button
-								style={{
-									backgroundColor: "#6c63ff",
-									color: "white",
-									padding: 15,
-									borderRadius: "5px",
-									border: "none",
-									cursor: "pointer",
-									width: "64%",
-								}}
-							>
-								SignUp
-							</button>
-						</div>
+						</Element>
 					</div>
+				</FormWrapper>
+				<div style={buttonHolder}>
+					<button style={buttonStyle}>SignUp</button>
 				</div>
-			</div>
-		</div>
+			</Wrapper>
+		</Container>
 	);
 }
 
