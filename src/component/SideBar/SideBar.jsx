@@ -6,7 +6,7 @@ import {
 	FaFileMedical,
 	FaListAlt,
 } from "react-icons/fa";
-import { MdDashboard } from "react-icons/md";
+import { Link } from "react-router-dom";
 import { BsArrowLeftShort } from "react-icons/bs";
 
 function SideBar() {
@@ -57,132 +57,121 @@ function SideBar() {
 							padding: 0,
 						}}
 					>
-						{/* <li style={linkItems}>
-							<a
-								href="#"
-								style={{
-									display: "flex",
-									alignItems: "center",
-									color: "#444",
-									textDecoration: "none",
-								}}
-							>
-								<MdDashboard />
-
-								<span
+						<Link to="/patients" className="link">
+							<li style={linkItems}>
+								<a
+									href="#"
 									style={{
-										marginLeft: "8px",
+										display: "flex",
+										alignItems: "center",
+										color: "#444",
+										textDecoration: "none",
 									}}
 								>
-									Dashboard
-								</span>
-							</a>
-						</li> */}
-						<li style={linkItems}>
-							<a
-								href="#"
-								style={{
-									display: "flex",
-									alignItems: "center",
-									color: "#444",
-									textDecoration: "none",
-								}}
-							>
-								<FaUser />
+									<FaUser />
 
-								<span
+									<span
+										style={{
+											marginLeft: "8px",
+										}}
+									>
+										Patients
+									</span>
+								</a>
+							</li>
+						</Link>
+						<Link to="/physicians" className="link">
+							<li style={linkItems}>
+								<a
+									href="#"
 									style={{
-										marginLeft: "8px",
+										display: "flex",
+										alignItems: "center",
+										color: "#444",
+										textDecoration: "none",
 									}}
 								>
-									Patients
-								</span>
-							</a>
-						</li>
-						<li style={linkItems}>
-							<a
-								href="#"
-								style={{
-									display: "flex",
-									alignItems: "center",
-									color: "#444",
-									textDecoration: "none",
-								}}
-							>
-								<FaUserMd />
+									<FaUserMd />
 
-								<span
+									<span
+										style={{
+											marginLeft: "8px",
+										}}
+									>
+										Physicians
+									</span>
+								</a>
+							</li>
+						</Link>
+						<Link to="/pharmacist" className="link">
+							<li style={linkItems}>
+								<a
+									href="#"
 									style={{
-										marginLeft: "8px",
+										display: "flex",
+										alignItems: "center",
+										color: "#444",
+										textDecoration: "none",
 									}}
 								>
-									Physicians
-								</span>
-							</a>
-						</li>
-						<li style={linkItems}>
-							<a
-								href="#"
-								style={{
-									display: "flex",
-									alignItems: "center",
-									color: "#444",
-									textDecoration: "none",
-								}}
-							>
-								<FaMedkit />
+									<FaMedkit />
 
-								<span
+									<span
+										style={{
+											marginLeft: "8px",
+										}}
+									>
+										Pharmacist
+									</span>
+								</a>
+							</li>
+						</Link>
+						<Link to="/result" className="link">
+							<li style={linkItems}>
+								<a
+									href="#"
 									style={{
-										marginLeft: "8px",
+										display: "flex",
+										alignItems: "center",
+										color: "#444",
+										textDecoration: "none",
 									}}
 								>
-									Pharmacist
-								</span>
-							</a>
-						</li>
-						<li style={linkItems}>
-							<a
-								href="#"
-								style={{
-									display: "flex",
-									alignItems: "center",
-									color: "#444",
-									textDecoration: "none",
-								}}
-							>
-								<FaFileMedical />
+									<FaFileMedical />
 
-								<span
+									<span
+										style={{
+											marginLeft: "8px",
+										}}
+									>
+										Results
+									</span>
+								</a>
+							</li>
+						</Link>
+						<Link to="/result" className="link">
+							<li style={linkItems}>
+								<a
+									href="#"
 									style={{
-										marginLeft: "8px",
+										display: "flex",
+										alignItems: "center",
+										color: "#444",
+										textDecoration: "none",
 									}}
 								>
-									Results
-								</span>
-							</a>
-						</li>
-						<li style={linkItems}>
-							<a
-								href="#"
-								style={{
-									display: "flex",
-									alignItems: "center",
-									color: "#444",
-									textDecoration: "none",
-								}}
-							>
-								<FaListAlt />
+									<FaListAlt />
 
-								<span
-									style={{
-										marginLeft: "8px",
-									}}
-								>
-									List of Medicines
-								</span>
-							</a>
-						</li>
+									<span
+										style={{
+											marginLeft: "8px",
+										}}
+									>
+										List of Medicines
+									</span>
+								</a>
+							</li>
+						</Link>
 					</ul>
 				</div>
 			</div>
