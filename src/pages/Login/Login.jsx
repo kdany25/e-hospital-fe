@@ -16,7 +16,7 @@ const Login = () => {
 							fontSize: "24px",
 						}}
 					>
-						<h1>
+						<h1 style={{ fontFamily: "Montserrat, sans-serif" }}>
 							Sign In to
 							<br /> Recharge Direct
 						</h1>
@@ -26,20 +26,24 @@ const Login = () => {
 						style={{
 							marginLeft: "10%",
 							marginTop: "5%",
-							fontSize: "16px",
+							fontSize: "20px",
 						}}
 					>
-						<h5>
+						<h5 style={{ fontFamily: "Montserrat, sans-serif" }}>
 							if you don't have an account
 							<br />
-							you can register here
+							You can register here
 						</h5>
 					</div>
 
-					<img
+					{/* <img
 						src={Doc}
-						style={{ height: "300px", width: "300px", marginLeft: '50%' }}
-					/>
+						style={{
+							height: "300px",
+							width: "300px",
+							marginLeft: "50%",
+						}}
+					/> */}
 				</div>
 				<LoginForm />
 			</div>

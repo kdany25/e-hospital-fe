@@ -20,7 +20,7 @@ function App() {
 	return (
 		<Router>
 			<Switch>
-				{!user ? (
+				{user ? (
 					<>
 						<Navbar />
 						<div className="container">
@@ -44,7 +44,7 @@ function App() {
 					</>
 				) : (
 					<>
-						<Route path="/login">
+						<Route path="/">
 							<Login />
 						</Route>
 						<Route path="/signup">
