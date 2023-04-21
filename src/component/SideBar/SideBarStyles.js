@@ -75,6 +75,11 @@ export const LogIcon = styled(FaMoon)`
 	margin-right: 0.5rem;
 	color: #9f76fc;
 `;
+export const HorizontalLine = styled.div`
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	margin: 0 10px;
+`;
 
 export const images = [
 	"https://i.ibb.co/thjQpxb/doc1-Photo-Room.png",
@@ -83,4 +88,5 @@ export const images = [
 	"https://i.ibb.co/qRNwqyS/doc5-Photo-Room.png",
 	"https://i.ibb.co/8cGGxdW/doc8-Photo-Room-png-Photo-Room.png",
 	"https://i.ibb.co/bRF6PYN/doc8.jpg",
+	"https://i.ibb.co/54c7Lf6/doc.png",
 ];

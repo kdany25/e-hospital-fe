@@ -52,6 +52,6 @@ function FloatingImages() {
 		</div>
 	);
 }
-const CHIP_METRICS = 45;
+const CHIP_METRICS = 40;
 
 export default FloatingImages;

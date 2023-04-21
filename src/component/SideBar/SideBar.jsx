@@ -19,8 +19,10 @@ import {
 	LogIcon,
 	linkItemsClicked,
 	HrefLinksClicked,
+	HorizontalLine,
 } from "./SideBarStyles";
 import FloatingImages from "../FloatingImage/FloatingImage";
+import Categories from "../Categories/Categories";
 
 function SideBar() {
 	const [open, setOpen] = useState(true);
@@ -110,11 +112,19 @@ function SideBar() {
 					</Link>
 				</MenuList>
 			</MenuHolder>
-			<div style={{ fontWeight: "bold", padding: 10, color: "#8a8998" }}>
+			<hr
+				style={{
+					borderTop: "1px solid #ebeae8",
+					width: "80%",
+		
+				}}
+			/>
+
+			<div style={{ fontWeight: "bold", padding: 10, color: "#363535" }}>
 				Meet the team
 			</div>
-
 			<FloatingImages />
+			<Categories />
 		</SideBarContainer>
 	);
 }
