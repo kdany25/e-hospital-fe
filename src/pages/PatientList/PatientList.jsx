@@ -48,7 +48,13 @@ function PatientList() {
 	];
 
 	return (
-		<div>
+		<div style={{ width: '100%'}}>
+		{/* Header */}
+			<div style={{height: '8%',width: '100%',backgroundColor: '#ffffff'}}>
+			</div>
+			<div style={{height: '92%',width: '100%',backgroundColor: '#f8f4fc'}}>
+
+			</div>
 			<DataTable columns={columns} data={data}></DataTable>
 		</div>
 	);

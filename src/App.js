@@ -20,9 +20,8 @@ function App() {
 	return (
 		<Router>
 			<Switch>
-				{user ? (
+				{!user ? (
 					<>
-						<Navbar />
 						<div className="container">
 							<SideBar />
 							<Route exact path="/patients">
