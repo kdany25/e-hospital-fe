@@ -33,7 +33,7 @@ function ConsultationPage() {
 				</div>
 
 				<div style={{ display: "flex" }}>
-					<div style={{ padding: "15px" }}>
+					<div style={{ padding: "20px" }}>
 						<img
 							src="https://i.ibb.co/HPxf0vW/pic-Photo-Room.png"
 							style={{
@@ -91,20 +91,21 @@ function ConsultationPage() {
 						backgroundColor: "#ffffff",
 						margin: "2%",
 						borderRadius: "20px",
+
+						position: "relative",
 					}}
 				>
 					<div style={{ display: "flex" }}>
 						<div
 							style={{
 								width: "60%",
-								// border: "2px solid red",
+
 								padding: "1%",
 							}}
 						>
 							<div
 								style={{
 									width: "100%",
-									// border: "2px solid red",
 								}}
 							>
 								<div
@@ -127,7 +128,7 @@ function ConsultationPage() {
 											border: "1px solid #e3e3e3",
 											backgroundColor: "#ffffff",
 											borderRadius: "10px",
-											width: "60%",
+											width: "80%",
 										}}
 									/>
 								</div>
@@ -153,7 +154,7 @@ function ConsultationPage() {
 											border: "1px solid #e3e3e3",
 											backgroundColor: "#ffffff",
 											borderRadius: "10px",
-											width: "60%",
+											width: "80%",
 										}}
 									/>
 								</div>
@@ -179,7 +180,7 @@ function ConsultationPage() {
 											border: "1px solid #e3e3e3",
 											backgroundColor: "#ffffff",
 											borderRadius: "10px",
-											width: "60%",
+											width: "80%",
 										}}
 									/>
 								</div>
@@ -203,6 +204,7 @@ function ConsultationPage() {
 										border: "1px solid #e3e3e3",
 										backgroundColor: "#ffffff",
 										borderRadius: "10px",
+										width: "80%",
 									}}
 								>
 									<MyEditor />
@@ -231,6 +233,46 @@ function ConsultationPage() {
 									style={{ height: "300px", width: "250px" }}
 								/>
 							</div>
+						</div>
+					</div>
+					<div
+						style={{
+							position: "absolute",
+							right: "2%",
+							bottom: "3%",
+						}}
+					>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								gap: "10px",
+							}}
+						>
+							<button
+								style={{
+									backgroundColor: "#9F76FC",
+									color: "#fff",
+									border: "none",
+									padding: "10px 20px",
+									cursor: "pointer",
+									borderRadius: "10px",
+								}}
+							>
+								Submit
+							</button>
+							<button
+								style={{
+									backgroundColor: "#fff",
+									color: "#000",
+									border: "1px solid #000",
+									padding: "10px 20px",
+									cursor: "pointer",
+									borderRadius: "10px",
+								}}
+							>
+								Cancel
+							</button>
 						</div>
 					</div>
 				</div>

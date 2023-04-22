@@ -5,9 +5,6 @@ import {
 	NavbarContainer,
 	NavLogo,
 	NavIcon,
-	NavMenu,
-	NavItem,
-	NavLink,
 	NavBtn,
 	NavBtnLink,
 } from "./navbarStyles";
