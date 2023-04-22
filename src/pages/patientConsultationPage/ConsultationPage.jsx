@@ -99,7 +99,6 @@ function ConsultationPage() {
 						<div
 							style={{
 								width: "60%",
-
 								padding: "1%",
 							}}
 						>
