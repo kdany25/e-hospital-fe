@@ -1,19 +1,9 @@
-.container{
-  display: flex;
-}
-
-
-.link{
-  text-decoration: none;
-  color: inherit;
-}
-
 /* Target the editor's iframe */
 .tox-tinymce {
   border-radius: 10px;
 }
 
 /* Target the editor's content area */
-/* body {
+body {
   border-radius: 10px;
-} */
+}
