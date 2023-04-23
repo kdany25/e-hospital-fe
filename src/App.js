@@ -28,7 +28,7 @@ function App() {
 						<div className="container">
 							<SideBar />
 							<Route exact path="/patients">
-								<PatientResult />
+								<PhysicianList />
 							</Route>
 							<Route exact path="/physicians">
 								<PhysicianList />
