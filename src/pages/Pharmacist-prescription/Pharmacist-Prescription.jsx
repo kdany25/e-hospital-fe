@@ -6,11 +6,12 @@ import {
 } from "./Pharmacist-prescriptionStyles";
 import {
 	FaSearch,
-	FaComment,
 	FaHome,
 	FaCalendarAlt,
 	FaUser,
+	FaNotesMedical,
 } from "react-icons/fa";
+import AutocompleteMui from "../../component/AutoComplete/AutoCompleteMeds";
 
 function PharmacistPrescription() {
 	return (
@@ -122,16 +123,28 @@ function PharmacistPrescription() {
 							Sat, Apr 22,2023, 8:40AM
 						</div>
 					</div>
+					<hr
+						style={{
+							borderTop: "1px solid #ebeae8",
+							width: "96%",
+							marginTop: "1%",
+						}}
+					/>
 
 					{/* infos */}
-					<div style={{display:'flex'}}>
+					<div
+						style={{
+							display: "flex",
+							paddingLeft: "2%",
+							paddingRight: "2%",
+							justifyContent: "space-between",
+						}}
+					>
 						<div
 							style={{
 								display: "flex",
-								marginTop: "3%",
 								paddingLeft: "2%",
-								width: "50%",
-								border: "2px solid red",
+								width: "45%",
 							}}
 						>
 							<div
@@ -149,7 +162,13 @@ function PharmacistPrescription() {
 							>
 								<FaUser />
 							</div>
-							<div style={{ width: "50%" }}>
+							<div
+								style={{
+									width: "50%",
+									marginTop: "1%",
+									marginLeft: "1%",
+								}}
+							>
 								<div
 									style={{
 										fontWeight: "bold",
@@ -183,9 +202,95 @@ function PharmacistPrescription() {
 								</button>
 							</div>
 						</div>
-						<div style={{ border: "1px solid red" }}>
-							<p>edfdafdsvdsfvdasvffdsvfdsvdfsvdfsv</p>
+						<div
+							style={{
+								display: "flex",
+								paddingLeft: "2%",
+								width: "45%",
+							}}
+						>
+							<div
+								style={{
+									backgroundColor: "#ebeae8",
+									height: "50px",
+									width: "50px",
+									display: "flex",
+									justifyContent: "center",
+									alignContent: "center",
+									alignItems: "center",
+									borderRadius: "50%",
+									marginTop: "5px",
+								}}
+							>
+								<FaNotesMedical />
+							</div>
+							<div
+								style={{
+									width: "90%",
+									marginTop: "1%",
+									marginLeft: "1%",
+								}}
+							>
+								<div
+									style={{
+										fontWeight: "bold",
+										marginLeft: "1%",
+									}}
+								>
+									Consultation
+								</div>
+								<div
+									style={{ padding: "1%", color: "#8a8998" }}
+								>
+									Lorem ipsum dolor sit amet, consectetur
+									adipiscing elit. Integer tempus sem at mi
+									lacinia ultricies. In elementum sapien
+									mattis justo luctus
+								</div>
+							</div>
 						</div>
+					</div>
+					<hr
+						style={{
+							borderTop: "1px solid #ebeae8",
+							width: "96%",
+							marginTop: "2%",
+						}}
+					/>
+					<div style={{ width: "30%", padding: "2%" }}>
+						<AutocompleteMui />
+					</div>
+					<div
+						style={{
+							display: "flex",
+							padding: "2%",
+							gap: "10px",
+						}}
+					>
+						<button
+							style={{
+								backgroundColor: "#9F76FC",
+								color: "#fff",
+								border: "none",
+								padding: "10px 20px",
+								cursor: "pointer",
+								borderRadius: "10px",
+							}}
+						>
+							Submit
+						</button>
+						<button
+							style={{
+								backgroundColor: "#fff",
+								color: "#000",
+								border: "1px solid #8a8998",
+								padding: "10px 20px",
+								cursor: "pointer",
+								borderRadius: "10px",
+							}}
+						>
+							Cancel
+						</button>
 					</div>
 				</div>
 			</PPWrapper>
