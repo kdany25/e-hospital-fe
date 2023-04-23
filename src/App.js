@@ -16,6 +16,7 @@ import ResultList from "./pages/Result/ResultList";
 import PatientProfile from "./pages/PatientProfile/PatientProfile";
 import ConsultationPage from "./pages/patientConsultationPage/ConsultationPage";
 import PharmacistPrescription from "./pages/Pharmacist-prescription/Pharmacist-Prescription";
+import PatientResult from "./pages/PatientResult/PatientResult";
 
 function App() {
 	const user = null;
@@ -27,7 +28,7 @@ function App() {
 						<div className="container">
 							<SideBar />
 							<Route exact path="/patients">
-								<PharmacistPrescription />
+								<PatientResult />
 							</Route>
 							<Route exact path="/physicians">
 								<PhysicianList />
