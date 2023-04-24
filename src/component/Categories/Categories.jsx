@@ -10,16 +10,15 @@ function Categories() {
 				}}
 			/>
 			<div style={{ fontWeight: "bold", padding: 10, color: "#363535" }}>
-				Services
+				Doctors/Service
 			</div>
 			<div
 				style={{
 					display: "flex",
 					justifyContent: "space-between",
 					padding: "10px",
-          color: '#999999',
-          fontWeight: "bold"
-
+					color: "#999999",
+					fontWeight: "bold",
 				}}
 			>
 				<div>Radiology</div>
@@ -40,8 +39,8 @@ function Categories() {
 					display: "flex",
 					justifyContent: "space-between",
 					padding: "10px",
-          color: '#999999',
-          fontWeight: "bold"
+					color: "#999999",
+					fontWeight: "bold",
 				}}
 			>
 				<div>Cardiology</div>
@@ -62,8 +61,8 @@ function Categories() {
 					display: "flex",
 					justifyContent: "space-between",
 					padding: "10px",
-          color: '#999999',
-          fontWeight: "bold"
+					color: "#999999",
+					fontWeight: "bold",
 				}}
 			>
 				<div>Obstetrics</div>
@@ -84,8 +83,8 @@ function Categories() {
 					display: "flex",
 					justifyContent: "space-between",
 					padding: "10px",
-          color: '#999999',
-          fontWeight: "bold"
+					color: "#999999",
+					fontWeight: "bold",
 				}}
 			>
 				<div>Dermatology</div>

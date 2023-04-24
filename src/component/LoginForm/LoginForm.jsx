@@ -1,9 +1,18 @@
 import React from "react";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { login } from "../../utils/apiCalls";
 
 function LoginForm() {
 	const [showPassword, setShowPassword] = useState(false);
+	const [email, setEmail] = useState();
+	const [password, setPassword] = useState();
+	const dispatch = useDispatch();
+
+	const handleLogin = () => {
+		login(dispatch, { email, password });
+	};
 
 	const handleTogglePassword = () => {
 		setShowPassword((prevState) => !prevState);
@@ -15,11 +24,17 @@ function LoginForm() {
 				margin: 10,
 				marginTop: "5%",
 				height: "90vh",
-	
 			}}
 		>
 			<div>
-				<h1 style={{ textAlign: "center", fontFamily: "Montserrat, sans-serif"  }}>Log in</h1>
+				<h1
+					style={{
+						textAlign: "center",
+						fontFamily: "Montserrat, sans-serif",
+					}}
+				>
+					Log in
+				</h1>
 				<div style={{ marginLeft: "5%" }}>
 					<div>
 						<div style={{ padding: "10px" }}>
@@ -30,6 +45,7 @@ function LoginForm() {
 								type="email"
 								id="email"
 								placeholder="Type your email"
+								onChange={(e, v) => setEmail(e.target.value)}
 								style={{
 									borderRadius: "5px",
 									backgroundColor: "#f0f0f2",
@@ -49,6 +65,9 @@ function LoginForm() {
 									type={showPassword ? "text" : "password"}
 									id="password"
 									placeholder="Type your password"
+									onChange={(e, v) =>
+										setPassword(e.target.value)
+									}
 									style={{
 										borderRadius: "5px",
 										backgroundColor: "#f0f0f2",
@@ -95,6 +114,7 @@ function LoginForm() {
 									width: "86%",
 									marginTop: "5%",
 								}}
+								onClick={() => handleLogin()}
 							>
 								Log in
 							</button>

@@ -65,7 +65,7 @@ function SideBar() {
 							</HrefLinks>
 						</li>
 					</Link>
-					<Link to="/pharmacist" className="link">
+					<Link to="/pharmacists" className="link">
 						<li style={linkItems}>
 							<HrefLinks>
 								<FaMedkit />
@@ -80,7 +80,7 @@ function SideBar() {
 							</HrefLinks>
 						</li>
 					</Link>
-					<Link to="/result" className="link">
+					<Link to="/results" className="link">
 						<li style={linkItems}>
 							<HrefLinks>
 								<FaFileMedical />

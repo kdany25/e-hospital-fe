@@ -1,8 +1,13 @@
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import { useSelector } from "react-redux";
+
+//auth
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
-import Navbar from "./component/Navbar/Navbar";
+
+//Sidebar
 import SideBar from "./component/SideBar/SideBar";
 
 //List
@@ -10,46 +15,71 @@ import PhysicianList from "./pages/PhyiscianList/PhysicianList";
 import PatientList from "./pages/PatientList/PatientList";
 import PharmacistList from "./pages/PharmacistList/PharmacistList";
 
-//Result
-import ResultList from "./pages/Result/ResultList";
-//Profile
-import PatientProfile from "./pages/PatientProfile/PatientProfile";
+//Profiles
 import ConsultationPage from "./pages/patientConsultationPage/ConsultationPage";
 import PharmacistPrescription from "./pages/Pharmacist-prescription/Pharmacist-Prescription";
 import PatientResult from "./pages/PatientResult/PatientResult";
 
 function App() {
-	const user = null;
+	let decoded;
+	const user = useSelector((state) => state.user.currentUser);
+	if (user) {
+		decoded = jwtDecode(user?.payload);
+	}
 	return (
 		<Router>
 			<Switch>
-				{!user ? (
+				{user ? (
 					<>
 						<div className="container">
 							<SideBar />
-							<Route exact path="/patients">
-								<PhysicianList />
-							</Route>
-							<Route exact path="/physicians">
-								<PhysicianList />
-							</Route>
-							<Route exact path="/pharmacist">
-								<PharmacistList />
-							</Route>
-							<Route exact path="/result">
-								<ResultList />
-							</Route>
-							<Route exact path="/patientProfile">
-								<PatientProfile />
-							</Route>
+							{decoded?.role === "PATIENT" && (
+								<>
+									<Route exact path="/">
+										<PhysicianList />
+									</Route>
+									<Route exact path="physicians">
+										<PhysicianList />
+									</Route>
+									<Route exact path="/pharmacists">
+										<PharmacistList />
+									</Route>
+									<Route exact path="/results">
+										<PatientResult />
+									</Route>
+								</>
+							)}
+							{decoded?.role === "PHARMACIST" && (
+								<>
+									<Route exact path="/">
+										<PatientList />
+									</Route>
+									<Route exact path="/prescription/:id">
+										<PharmacistPrescription />
+									</Route>
+								</>
+							)}
+							{decoded?.role === "PHYSICIAN" && (
+								<>
+									<Route exact path="/">
+										<PatientList />
+									</Route>
+									<Route exact path="/consultation/:id">
+										<ConsultationPage />
+									</Route>
+								</>
+							)}
 						</div>
 					</>
 				) : (
 					<>
+						<Route path="/">
+							<Login />
+						</Route>
 						<Route path="/login">
 							<Login />
 						</Route>
-						<Route path="/signup">
+						<Route path="/signUp">
 							<SignUp />
 						</Route>
 					</>
