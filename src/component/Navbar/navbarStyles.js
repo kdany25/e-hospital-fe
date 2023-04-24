@@ -24,7 +24,7 @@ export const NavbarContainer = styled.div`
 `;
 
 export const NavLogo = styled(LinkR)`
-	color: #2596be;
+	color: #8a8998;
 	justify-self: flex-start;
 	cursor: pointer;
 	display: flex;
@@ -37,6 +37,7 @@ export const NavLogo = styled(LinkR)`
 
 export const NavIcon = styled(FaMoon)`
 	margin-right: 0.5rem;
+	color: #9f76fc;
 `;
 
 export const NavMenu = styled.ul`
@@ -109,7 +110,7 @@ export const NavBtn = styled.nav`
 
 export const NavBtnLink = styled(LinkR)`
 	border-radius: 50px;
-	background: #2596be;
+	background: #9f76fc;
 	white-space: nowrap;
 	padding: 10px 22px;
 	color: #ffffff;

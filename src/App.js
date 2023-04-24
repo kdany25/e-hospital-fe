@@ -33,7 +33,7 @@ function App() {
 					<>
 						<div className="container">
 							<SideBar />
-							{decoded?.role === "PATIENT" && (
+							{decoded?.user.role === "PATIENT" && (
 								<>
 									<Route exact path="/">
 										<PhysicianList />
@@ -49,7 +49,7 @@ function App() {
 									</Route>
 								</>
 							)}
-							{decoded?.role === "PHARMACIST" && (
+							{decoded?.user.role === "PHARMACIST" && (
 								<>
 									<Route exact path="/">
 										<PatientList />
@@ -59,7 +59,7 @@ function App() {
 									</Route>
 								</>
 							)}
-							{decoded?.role === "PHYSICIAN" && (
+							{decoded?.user.role === "PHYSICIAN" && (
 								<>
 									<Route exact path="/">
 										<PatientList />

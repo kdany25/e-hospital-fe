@@ -19,7 +19,6 @@ import {
 	LogIcon,
 	linkItemsClicked,
 	HrefLinksClicked,
-	HorizontalLine,
 } from "./SideBarStyles";
 import FloatingImages from "../FloatingImage/FloatingImage";
 import Categories from "../Categories/Categories";

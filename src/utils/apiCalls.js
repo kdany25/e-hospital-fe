@@ -1,12 +1,12 @@
 import { loginFailure, loginStart, loginSuccess } from "../slice/AuthSlice";
-import { publicRequest } from "./requestMethod";
+import { apiRequest } from "./requestMethod";
 
 //
 export const login = async (dispatch, user) => {
 	dispatch(loginStart());
 	try {
-		const res = await publicRequest.post("/login", user);
-		dispatch(loginSuccess(res.data));
+		const res = await apiRequest.post("/login", user);
+		dispatch(loginSuccess(res.data?.data));
 	} catch (err) {
 		dispatch(loginFailure());
 	}

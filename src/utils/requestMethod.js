@@ -1,7 +1,9 @@
 import axios from "axios";
 
-export const BASE_URL = "http://localhost:8080/user-auth-service-1.0-SNAPSHOT";
+export const BASE_URL= "http://localhost:3000/api/v1/auth";
 
-export const publicRequest = axios.create({
+
+export const apiRequest = axios.create({
 	baseURL: BASE_URL,
 });
+

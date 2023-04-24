@@ -105,7 +105,7 @@ function LoginForm() {
 						<div style={{ padding: 10 }}>
 							<button
 								style={{
-									backgroundColor: "#2596be",
+									backgroundColor: "#9f76fc",
 									color: "white",
 									padding: 18,
 									borderRadius: "5px",
