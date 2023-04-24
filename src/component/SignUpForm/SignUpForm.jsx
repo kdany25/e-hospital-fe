@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {
 	Container,
@@ -14,12 +14,36 @@ import {
 	buttonStyle,
 	buttonHolder,
 } from "./SignUpFormStyles";
+import axios from "axios";
 
 function SignUpForm() {
 	const [showPassword, setShowPassword] = useState(false);
+	const [inputs, setInputs] = useState({});
+	const dispatch = useDispatch();
 
 	const handleTogglePassword = () => {
 		setShowPassword((prevState) => !prevState);
+	};
+	const handleChange = (key, e) => {
+		setInputs((prev) => {
+			return { ...prev, [key]: e };
+		});
+	};
+
+	const onSave = async () => {
+		await axios
+			.post(
+				"http://localhost:8080/user-auth-service-1.0-SNAPSHOT/register",
+				inputs
+			)
+			.then((res) => {
+				if (res.data.firstName) {
+					console.log(res.data);
+				}
+			})
+			.catch((error) => {
+				console.log(inputs);
+			});
 	};
 	return (
 		<Container>
@@ -29,12 +53,26 @@ function SignUpForm() {
 					<div style={{ width: "50%" }}>
 						<Element>
 							<Label>
-								<label htmlFor="email">Name:</label>
+								<label htmlFor="email">First Name:</label>
 							</Label>
 							<Inputs
 								type="text"
-								id="name"
-								placeholder="Type your name"
+								placeholder="Type your Firstname"
+								onChange={(e, v) =>
+									handleChange("firstName", e.target.value)
+								}
+							/>
+						</Element>
+						<Element>
+							<Label>
+								<label htmlFor="email">Last Name:</label>
+							</Label>
+							<Inputs
+								type="text"
+								placeholder="Type your Lastname"
+								onChange={(e, v) =>
+									handleChange("lastName", e.target.value)
+								}
 							/>
 						</Element>
 						<Element>
@@ -46,6 +84,9 @@ function SignUpForm() {
 								type="text"
 								id="username"
 								placeholder="Type your username"
+								onChange={(e, v) =>
+									handleChange("username", e.target.value)
+								}
 							/>
 						</Element>
 
@@ -58,6 +99,9 @@ function SignUpForm() {
 								type="email"
 								id="email"
 								placeholder="Type your email"
+								onChange={(e, v) =>
+									handleChange("email", e.target.value)
+								}
 							/>
 						</Element>
 
@@ -70,6 +114,9 @@ function SignUpForm() {
 								type="Phone"
 								id="Phone"
 								placeholder="Type your Phone"
+								onChange={(e, v) =>
+									handleChange("phone", e.target.value)
+								}
 							/>
 						</Element>
 					</div>
@@ -82,7 +129,10 @@ function SignUpForm() {
 							<Inputs
 								type="Phone"
 								id="Phone"
-								placeholder="Type your Phone"
+								placeholder="Type your Age"
+								onChange={(e, v) =>
+									handleChange("age", e.target.value)
+								}
 							/>
 						</Element>
 						<Element>
@@ -90,7 +140,11 @@ function SignUpForm() {
 								<label htmlFor="Gender">Gender:</label>
 							</Label>
 
-							<Select>
+							<Select
+								onChange={(e, v) =>
+									handleChange("gender", e.target.value)
+								}
+							>
 								<option value="MALE">MALE</option>
 								<option value="FEMALE">FEMALE</option>
 							</Select>
@@ -100,7 +154,11 @@ function SignUpForm() {
 								<label htmlFor="Gender">Role:</label>
 							</Label>
 
-							<Select>
+							<Select
+								onChange={(e, v) =>
+									handleChange("role", e.target.value)
+								}
+							>
 								<option value="MALE">Patient</option>
 								<option value="FEMALE">Physian</option>
 								<option value="MALE">Pharmacist</option>
@@ -117,6 +175,9 @@ function SignUpForm() {
 									type={showPassword ? "text" : "password"}
 									id="password"
 									placeholder="Type your password"
+									onChange={(e, v) =>
+										handleChange("password", e.target.value)
+									}
 								/>
 								{showPassword ? (
 									<FaEyeSlash
@@ -134,7 +195,9 @@ function SignUpForm() {
 					</div>
 				</FormWrapper>
 				<div style={buttonHolder}>
-					<button style={buttonStyle}>SignUp</button>
+					<button style={buttonStyle} onClick={() => onSave()}>
+						SignUp
+					</button>
 				</div>
 			</Wrapper>
 		</Container>
