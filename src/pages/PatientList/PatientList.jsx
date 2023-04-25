@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { FaSearch, FaComment, FaHome } from "react-icons/fa";
 import { columns, data, numbers } from "../../data";
@@ -8,8 +8,78 @@ import {
 	Othernumbers,
 	Currentnumber,
 } from "./patientListStyles";
+import jwtDecode from "jwt-decode";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../../utils/requestMethod";
+import { Link } from "react-router-dom";
 
 function PatientList() {
+	const [data, setData] = useState(null);
+	const [loading, setLoading] = useState(true);
+
+	let decoded;
+	const user = useSelector((state) => state.user.currentUser);
+	if (user) {
+		decoded = jwtDecode(user?.payload);
+	}
+	let pharmacistId;
+	let physicianId;
+	if (decoded?.user?.role === "PHYSICIAN") {
+		physicianId = decoded?.user?.id;
+	} else if (decoded?.user?.role === "PHARMACIST") {
+		pharmacistId = decoded?.user?.id;
+	}
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				if (pharmacistId) {
+					const response = await axios.get(
+						`${BASE_URL}/medical/medicalRecords?pharmacistId=${pharmacistId}`
+					);
+					setData(response.data?.data);
+				}
+				if (physicianId) {
+					const response = await axios.get(
+						`${BASE_URL}/medical/medicalRecords?physicianId=${physicianId}`
+					);
+					setData(response.data?.data);
+				}
+			} catch (error) {
+				console.error(error);
+			} finally {
+				setLoading(false);
+			}
+		}
+
+		fetchData();
+	}, []);
+
+	if (loading) {
+		return <p>Loading...</p>;
+	}
+	const columns = [
+		{
+			name: "Record Id",
+			selector: (row) => row.id,
+		},
+		{
+			name: "Patient Id",
+			selector: (row) => row.patientId,
+		},
+		{
+			name: "symptoms",
+			selector: (row) => row.symptoms,
+		},
+		{
+			name: "View",
+			cell: (row) => (
+				<Link to={"/consultation/" + row.id}>
+					<button className="userListEdit">Edit</button>
+				</Link>
+			),
+		},
+	];
 	return (
 		<PListContainer>
 			{/* Header */}

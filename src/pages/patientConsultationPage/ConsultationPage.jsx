@@ -1,9 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ConsContainer, ConstHeader, InfosWrapper } from "./consultationStyles";
 import { FaSearch, FaComment, FaHome } from "react-icons/fa";
 import MyEditor from "../../component/TextEdior/MyEditor";
+import { useParams } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../../utils/requestMethod";
+import { Editor } from "@tinymce/tinymce-react";
 
 function ConsultationPage() {
+	const { id } = useParams();
+	const [data, setData] = useState(null);
+	const [consultation, setConsultation] = useState(null);
+	let decoded;
+	const user = useSelector((state) => state.user.currentUser);
+	if (user) {
+		decoded = jwtDecode(user?.payload);
+	}
+
+	let physicianId;
+	if (decoded?.user?.role === "PHYSICIAN") {
+		physicianId = decoded?.user?.id;
+	}
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const response = await axios.get(
+					`${BASE_URL}/medical/medicalRecords?physicianId=${physicianId}`
+				);
+				setData(response.data?.data[0]);
+			} catch (error) {
+				console.error(error);
+			}
+		}
+
+		fetchData();
+	}, [id]);
+
+	const handleEditorChange = (content, editor) => {
+		setConsultation(editor.getContent());
+	};
+
+	const onSaveConsultation = async () => {
+		try {
+			await axios.post(`${BASE_URL}/medical/addConsultation`, {
+				id: id,
+				consultation: consultation.replace(/<\/?p>/g, ""),
+				physicianId,
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return (
 		<ConsContainer>
 			<ConstHeader>
@@ -102,11 +153,7 @@ function ConsultationPage() {
 								padding: "1%",
 							}}
 						>
-							<div
-								style={{
-									width: "100%",
-								}}
-							>
+							<div>
 								<div
 									style={{
 										padding: "2%",
@@ -116,11 +163,11 @@ function ConsultationPage() {
 										color: "#595958",
 									}}
 								>
-									Patient name
+									Record Id
 								</div>
 								<div>
 									<input
-										placeholder="Kabalisa dany"
+										placeholder={id}
 										style={{
 											padding: "12px",
 											marginLeft: "20px",
@@ -142,37 +189,11 @@ function ConsultationPage() {
 										color: "#595958",
 									}}
 								>
-									Email
+									Symptoms
 								</div>
 								<div>
 									<input
-										placeholder="kabadany88@gmail.com"
-										style={{
-											padding: "12px",
-											marginLeft: "20px",
-											border: "1px solid #e3e3e3",
-											backgroundColor: "#ffffff",
-											borderRadius: "10px",
-											width: "80%",
-										}}
-									/>
-								</div>
-							</div>
-							<div>
-								<div
-									style={{
-										padding: "2%",
-										marginLeft: "2%",
-										fontWeight: "bold",
-										fontSize: 16,
-										color: "#595958",
-									}}
-								>
-									Age
-								</div>
-								<div>
-									<input
-										placeholder="34"
+										value={data?.symptoms}
 										style={{
 											padding: "12px",
 											marginLeft: "20px",
@@ -206,7 +227,20 @@ function ConsultationPage() {
 										width: "80%",
 									}}
 								>
-									<MyEditor />
+									<Editor
+										apiKey="edqediiu06b35lfua2e3m1l7dcs0b6qs4x41ixzenbmbto3j"
+										initialValue="<p>Type consultation here</p>"
+										init={{
+											height: 250,
+											plugins:
+												"advlist autolink lists link image charmap print preview",
+											toolbar:
+												"bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image",
+											menubar: false,
+											content_css: "./custom.css",
+										}}
+										onEditorChange={handleEditorChange}
+									/>
 								</div>
 							</div>
 						</div>
@@ -249,6 +283,9 @@ function ConsultationPage() {
 							}}
 						>
 							<button
+								onClick={() => {
+									onSaveConsultation();
+								}}
 								style={{
 									backgroundColor: "#9F76FC",
 									color: "#fff",

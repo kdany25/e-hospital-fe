@@ -42,53 +42,57 @@ function SideBar() {
 			<BsArrowLeftShort style={BackIcon} onClick={() => setOpen(!open)} />
 			<MenuHolder>
 				<MenuList>
-					{!decoded?.user?.role === "PATIENT" && (
-						<Link to="/patients" className="link">
-							<li style={linkItemsClicked}>
-								<HrefLinksClicked>
-									<FaUser />
+					{decoded?.user?.role === "PHARMACIST" ||
+						(decoded?.user?.role === "PHYSICIAN" && (
+							<Link to="/patients" className="link">
+								<li style={linkItemsClicked}>
+									<HrefLinksClicked>
+										<FaUser />
+										<span
+											style={{
+												marginLeft: "8px",
+											}}
+										>
+											Patients
+										</span>
+									</HrefLinksClicked>
+								</li>
+							</Link>
+						))}
+					{decoded?.user?.role === "PATIENT" && (
+						<Link to="/physicians" className="link">
+							<li style={linkItems}>
+								<HrefLinks>
+									<FaUserMd />
+
 									<span
 										style={{
 											marginLeft: "8px",
 										}}
 									>
-										Patients
+										Physicians
 									</span>
-								</HrefLinksClicked>
+								</HrefLinks>
 							</li>
 						</Link>
 					)}
+					{decoded?.user?.role === "PATIENT" && (
+						<Link to="/pharmacists" className="link">
+							<li style={linkItems}>
+								<HrefLinks>
+									<FaMedkit />
 
-					<Link to="/physicians" className="link">
-						<li style={linkItems}>
-							<HrefLinks>
-								<FaUserMd />
-
-								<span
-									style={{
-										marginLeft: "8px",
-									}}
-								>
-									Physicians
-								</span>
-							</HrefLinks>
-						</li>
-					</Link>
-					<Link to="/pharmacists" className="link">
-						<li style={linkItems}>
-							<HrefLinks>
-								<FaMedkit />
-
-								<span
-									style={{
-										marginLeft: "8px",
-									}}
-								>
-									Pharmacist
-								</span>
-							</HrefLinks>
-						</li>
-					</Link>
+									<span
+										style={{
+											marginLeft: "8px",
+										}}
+									>
+										Pharmacist
+									</span>
+								</HrefLinks>
+							</li>
+						</Link>
+					)}
 					{decoded?.user?.role === "PATIENT" && (
 						<Link to="/results" className="link">
 							<li style={linkItems}>
@@ -107,7 +111,7 @@ function SideBar() {
 						</Link>
 					)}
 
-					{!decoded?.user?.role === "PATIENT" && (
+					{decoded?.user?.role === "PHARMACIST" && (
 						<Link to="/result" className="link">
 							<li style={linkItems}>
 								<HrefLinks>
