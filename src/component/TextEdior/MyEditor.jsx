@@ -9,7 +9,7 @@ function MyEditor() {
 	return (
 		<Editor
 			apiKey="edqediiu06b35lfua2e3m1l7dcs0b6qs4x41ixzenbmbto3j"
-			initialValue="<p>Type description here</p>"
+			initialValue="<p>Type consultation here</p>"
 			init={{
 				height: 250,
 				plugins:

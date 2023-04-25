@@ -1,15 +1,108 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { FaSearch, FaHome } from "react-icons/fa";
-import { columns, data } from "../../data";
 import {
 	PhysicianListContainer,
 	PhysicianListHeader,
 	PhysicianListCurrentnumber,
 	PhysicianListOthernumbers,
 } from "./PhysicianStyle";
+import { BASE_URL } from "../../utils/requestMethod";
+import axios from "axios";
+import { Switch } from "@mui/material";
+import jwtDecode from "jwt-decode";
+import { useSelector } from "react-redux";
 
-function PhysicianList() {
+const PhysicianList = () => {
+	const [data, setData] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [symptoms, setSymptoms] = useState(null);
+	const [recordId, setRecordId] = useState();
+
+	let decoded;
+	const user = useSelector((state) => state.user.currentUser);
+	if (user) {
+		decoded = jwtDecode(user?.payload);
+	}
+	const patientId = decoded?.user?.id;
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const response = await axios.get(
+					`${BASE_URL}/medical/physicians`
+				);
+				setData(response.data?.data);
+			} catch (error) {
+				console.error(error);
+			} finally {
+				setLoading(false);
+			}
+		}
+
+		fetchData();
+	}, []);
+
+	const onSave = async () => {
+		try {
+			const { data } = await axios.post(
+				`${BASE_URL}/medical/createRecord`,
+				{
+					patientId,
+					symptoms,
+				}
+			);
+			setRecordId(data.data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const grantAccessToDoctor = async (physicianId) => {
+		try {
+			await axios.post(
+				`${BASE_URL}/medical/medicalRecords/assignDoctor`,
+				{ id: recordId, patientId, physicianId }
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	if (loading) {
+		return <p>Loading...</p>;
+	}
+	const label = { inputProps: { "aria-label": "Color switch demo" } };
+
+	const columns = [
+		{
+			name: "First name",
+			selector: (row) => row.firstName,
+		},
+		{
+			name: "Last name",
+			selector: (row) => row.lastName,
+		},
+		{
+			name: "Email",
+			selector: (row) => row.email,
+		},
+		{
+			name: "Gender",
+			selector: (row) => row.gender,
+		},
+		{
+			name: "Grant Access",
+			cell: (row) => (
+				<Switch
+					{...label}
+					color="secondary"
+					onChange={() => grantAccessToDoctor(row.id)}
+				/>
+			),
+		},
+	];
+
 	return (
 		<PhysicianListContainer>
 			{/* Header */}
@@ -61,7 +154,7 @@ function PhysicianList() {
 				}}
 			>
 				{/* title */}
-				<div
+				{/* <div
 					style={{
 						padding: "2%",
 						fontWeight: "bold",
@@ -69,10 +162,10 @@ function PhysicianList() {
 					}}
 				>
 					Physicians List
-				</div>
+				</div> */}
 
 				{/* navigation */}
-				<div style={{ display: "flex", marginLeft: "2%" }}>
+				<div style={{ display: "flex", padding: "2%" }}>
 					<FaHome style={{ color: "#8a8998" }} />
 					<div style={{ marginLeft: "5px", color: "#8a8998" }}>
 						Home
@@ -88,6 +181,52 @@ function PhysicianList() {
 						}}
 					>
 						Physicians List
+					</div>
+				</div>
+
+				<div>
+					<div style={{ paddingLeft: "2%", fontWeight: "bold" }}>
+						Symptoms
+					</div>
+					<textarea
+						value={symptoms}
+						onChange={(e) => {
+							setSymptoms(e.target.value);
+						}}
+						style={{
+							padding: "30px",
+							marginTop: "10px",
+							marginLeft: "20px",
+							border: "none",
+							backgroundColor: "#fff",
+							borderRadius: "10px",
+							width: "200px",
+						}}
+					/>
+					<div
+						style={{
+							display: "flex",
+							paddingLeft: "2%",
+						}}
+					>
+						<button
+							onClick={() => {
+								onSave();
+								setSymptoms("");
+							}}
+							style={{
+								backgroundColor: "#ebeae8",
+								color: "#9F76FC",
+								border: "none",
+								padding: "10px 20px",
+								cursor: "pointer",
+								borderRadius: "10px",
+								fontWeight: "bold",
+								marginTop: "1%",
+							}}
+						>
+							Submit
+						</button>
 					</div>
 				</div>
 
@@ -136,7 +275,7 @@ function PhysicianList() {
 
 				<div
 					style={{
-						height: "60%",
+						height: "40%",
 						backgroundColor: "#ffffff",
 						margin: "2%",
 						borderRadius: "20px",
@@ -163,6 +302,6 @@ function PhysicianList() {
 			</div>
 		</PhysicianListContainer>
 	);
-}
+};
 
 export default PhysicianList;

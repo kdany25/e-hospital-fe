@@ -1,16 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RContainer, RHeader, RWrapper } from "./Result";
-import {
-	FaSearch,
-	FaHome,
-	FaCalendarAlt,
-	FaUser,
-	FaNotesMedical,
-} from "react-icons/fa";
-import AutocompleteMui from "../../component/AutoComplete/AutoCompleteMeds";
+import { FaSearch, FaHome, FaCalendarAlt, FaUser } from "react-icons/fa";
 import MedicinesTable from "../../component/MedicalResultTable/MedecineTable";
+import jwtDecode from "jwt-decode";
+import { useSelector } from "react-redux";
+import { BASE_URL } from "../../utils/requestMethod";
+import axios from "axios";
 
 function PatientResult() {
+	const [data, setData] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const today = new Date();
+	let decoded;
+	const user = useSelector((state) => state.user.currentUser);
+	if (user) {
+		decoded = jwtDecode(user?.payload);
+	}
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const response = await axios.get(
+					`${BASE_URL}/medical/medicalRecords?patientId=${decoded.user?.id}`
+				);
+				setData(response.data?.data);
+			} catch (error) {
+				console.error(error);
+			} finally {
+				setLoading(false);
+			}
+		}
+
+		fetchData();
+	}, []);
 	return (
 		<RContainer>
 			<RHeader>
@@ -92,7 +113,7 @@ function PatientResult() {
 					}}
 				>
 					<div style={{ padding: "2%", fontWeight: "bold" }}>
-						Patient Id: #2345
+						Patient Id: {decoded.user.id}
 					</div>
 					<div
 						style={{
@@ -107,7 +128,7 @@ function PatientResult() {
 								marginLeft: "5px",
 							}}
 						>
-							Sat, Apr 22,2023, 8:40AM
+							{today.toDateString()}
 						</div>
 					</div>
 					<hr
@@ -166,13 +187,16 @@ function PatientResult() {
 								</div>
 								<div style={{ color: "#8a8998" }}>
 									<div style={{ padding: "1%" }}>
-										Full name: Kabalisa dany
+										Full name:{" "}
+										{decoded?.user?.firstName +
+											" " +
+											decoded?.user?.lastName}
 									</div>
 									<div style={{ padding: "1%" }}>
-										Email: kabadany88@gmail.com
+										Email: {decoded?.user?.email}
 									</div>
 									<div style={{ padding: "1%" }}>
-										Phone: +250 788 730 199
+										Phone: {decoded?.user?.phone}
 									</div>
 								</div>
 							</div>

@@ -14,6 +14,7 @@ import {
 import AutocompleteMui from "../../component/AutoComplete/AutoCompleteMeds";
 
 function PharmacistPrescription() {
+	const today = new Date();
 	return (
 		<PPContainer>
 			<PPHeader>
@@ -120,7 +121,7 @@ function PharmacistPrescription() {
 								marginLeft: "5px",
 							}}
 						>
-							Sat, Apr 22,2023, 8:40AM
+							{today.toDateString()}
 						</div>
 					</div>
 					<hr
