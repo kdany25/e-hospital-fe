@@ -1,15 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { FaSearch, FaHome } from "react-icons/fa";
-import { columns, data } from "../../data";
+// import { columns, data } from "../../data";
 import {
 	PharmacistListContainer,
 	PharmacistListHeader,
 	PharmacistListCurrentnumber,
 	PharmacistListOthernumbers,
 } from "./PharmacistStyles";
+import { BASE_URL } from "../../utils/requestMethod";
+import axios from "axios";
+import { Switch } from "@mui/material";
 
 function PharmacistList() {
+	const [data, setData] = useState(null);
+	const [loading, setLoading] = useState(true);
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const response = await axios.get(
+					`${BASE_URL}/medical/pharmacists`
+				);
+				setData(response.data?.data);
+			} catch (error) {
+				console.error(error);
+			} finally {
+				setLoading(false);
+			}
+		}
+
+		fetchData();
+	}, []);
+
+	if (loading) {
+		return <p>Loading...</p>;
+	}
+	const label = { inputProps: { "aria-label": "Color switch demo" } };
+
+	const columns = [
+		{
+			name: "First name",
+			selector: (row) => row.firstName,
+		},
+		{
+			name: "Last name",
+			selector: (row) => row.lastName,
+		},
+		{
+			name: "Email",
+			selector: (row) => row.email,
+		},
+		{
+			name: "Gender",
+			selector: (row) => row.gender,
+		},
+		{
+			name: "Grant Access",
+			cell: (row) => <Switch {...label} color="secondary" />,
+		},
+	];
 	return (
 		<PharmacistListContainer>
 			{/* Header */}

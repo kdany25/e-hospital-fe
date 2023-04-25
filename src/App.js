@@ -1,5 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
+} from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import { useSelector } from "react-redux";
 
@@ -35,10 +40,8 @@ function App() {
 							<SideBar />
 							{decoded?.user.role === "PATIENT" && (
 								<>
-									<Route exact path="/">
-										<PhysicianList />
-									</Route>
-									<Route exact path="physicians">
+									<Redirect to="/physicians" />
+									<Route exact path="/physicians">
 										<PhysicianList />
 									</Route>
 									<Route exact path="/pharmacists">

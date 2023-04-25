@@ -22,9 +22,16 @@ import {
 } from "./SideBarStyles";
 import FloatingImages from "../FloatingImage/FloatingImage";
 import Categories from "../Categories/Categories";
+import jwtDecode from "jwt-decode";
+import { useSelector } from "react-redux";
 
 function SideBar() {
 	const [open, setOpen] = useState(true);
+	let decoded;
+	const user = useSelector((state) => state.user.currentUser);
+	if (user) {
+		decoded = jwtDecode(user?.payload);
+	}
 
 	return (
 		<SideBarContainer style={{ width: `${open ? "300px" : "50px"}` }}>
@@ -35,20 +42,23 @@ function SideBar() {
 			<BsArrowLeftShort style={BackIcon} onClick={() => setOpen(!open)} />
 			<MenuHolder>
 				<MenuList>
-					<Link to="/patients" className="link">
-						<li style={linkItemsClicked}>
-							<HrefLinksClicked>
-								<FaUser />
-								<span
-									style={{
-										marginLeft: "8px",
-									}}
-								>
-									Patients
-								</span>
-							</HrefLinksClicked>
-						</li>
-					</Link>
+					{!decoded?.user?.role === "PATIENT" && (
+						<Link to="/patients" className="link">
+							<li style={linkItemsClicked}>
+								<HrefLinksClicked>
+									<FaUser />
+									<span
+										style={{
+											marginLeft: "8px",
+										}}
+									>
+										Patients
+									</span>
+								</HrefLinksClicked>
+							</li>
+						</Link>
+					)}
+
 					<Link to="/physicians" className="link">
 						<li style={linkItems}>
 							<HrefLinks>
@@ -79,43 +89,47 @@ function SideBar() {
 							</HrefLinks>
 						</li>
 					</Link>
-					<Link to="/results" className="link">
-						<li style={linkItems}>
-							<HrefLinks>
-								<FaFileMedical />
+					{decoded?.user?.role === "PATIENT" && (
+						<Link to="/results" className="link">
+							<li style={linkItems}>
+								<HrefLinks>
+									<FaFileMedical />
 
-								<span
-									style={{
-										marginLeft: "8px",
-									}}
-								>
-									Results
-								</span>
-							</HrefLinks>
-						</li>
-					</Link>
-					<Link to="/result" className="link">
-						<li style={linkItems}>
-							<HrefLinks>
-								<FaListAlt />
+									<span
+										style={{
+											marginLeft: "8px",
+										}}
+									>
+										Results
+									</span>
+								</HrefLinks>
+							</li>
+						</Link>
+					)}
 
-								<span
-									style={{
-										marginLeft: "8px",
-									}}
-								>
-									List of Medicines
-								</span>
-							</HrefLinks>
-						</li>
-					</Link>
+					{!decoded?.user?.role === "PATIENT" && (
+						<Link to="/result" className="link">
+							<li style={linkItems}>
+								<HrefLinks>
+									<FaListAlt />
+
+									<span
+										style={{
+											marginLeft: "8px",
+										}}
+									>
+										List of Medicines
+									</span>
+								</HrefLinks>
+							</li>
+						</Link>
+					)}
 				</MenuList>
 			</MenuHolder>
 			<hr
 				style={{
 					borderTop: "1px solid #ebeae8",
 					width: "80%",
-		
 				}}
 			/>
 
