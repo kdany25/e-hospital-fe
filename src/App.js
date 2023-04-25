@@ -73,13 +73,13 @@ function App() {
 					</>
 				) : (
 					<>
-						<Route path="/">
+						<Route exact path="/">
 							<Login />
 						</Route>
-						<Route path="/login">
+						<Route exact path="/login">
 							<Login />
 						</Route>
-						<Route path="/signUp">
+						<Route exact path="/signUp">
 							<SignUp />
 						</Route>
 					</>

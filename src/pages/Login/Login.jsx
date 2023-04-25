@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "../../component/Navbar/Navbar";
 import LoginForm from "../../component/LoginForm/LoginForm";
-import Doc from "../../assets/doc.png";
 
 const Login = () => {
 	return (
@@ -18,7 +17,7 @@ const Login = () => {
 					>
 						<h1 style={{ fontFamily: "Montserrat, sans-serif" }}>
 							Sign In to
-							<br /> Recharge Direct
+							<br /> Get our service
 						</h1>
 					</div>
 
@@ -35,15 +34,6 @@ const Login = () => {
 							You can register here
 						</h5>
 					</div>
-
-					{/* <img
-						src={Doc}
-						style={{
-							height: "300px",
-							width: "300px",
-							marginLeft: "50%",
-						}}
-					/> */}
 				</div>
 				<LoginForm />
 			</div>

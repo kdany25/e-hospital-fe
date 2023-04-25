@@ -15,11 +15,13 @@ import {
 	buttonHolder,
 } from "./SignUpFormStyles";
 import axios from "axios";
+import { BASE_URL } from "../../utils/requestMethod";
+import { Redirect } from "react-router-dom";
 
 function SignUpForm() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [inputs, setInputs] = useState({});
-	const dispatch = useDispatch();
+	const [shouldRedirect, setShouldRedirect] = useState(false);
 
 	const handleTogglePassword = () => {
 		setShowPassword((prevState) => !prevState);
@@ -32,19 +34,19 @@ function SignUpForm() {
 
 	const onSave = async () => {
 		await axios
-			.post(
-				"http://localhost:8080/user-auth-service-1.0-SNAPSHOT/register",
-				inputs
-			)
+			.post(`${BASE_URL}/auth/register`, inputs)
 			.then((res) => {
-				if (res.data.firstName) {
-					console.log(res.data);
+				if (res.status === 200 || res.status === 201) {
+					setShouldRedirect(true);
 				}
 			})
 			.catch((error) => {
 				console.log(inputs);
 			});
 	};
+	if (shouldRedirect) {
+		return <Redirect to="/login" />;
+	}
 	return (
 		<Container>
 			<Wrapper>
