@@ -9,11 +9,22 @@ import {
 } from "./PhysicianStyle";
 import { BASE_URL } from "../../utils/requestMethod";
 import axios from "axios";
-import { Switch } from '@mui/material'
+import { Switch } from "@mui/material";
+import jwtDecode from "jwt-decode";
+import { useSelector } from "react-redux";
 
 const PhysicianList = () => {
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [symptoms, setSymptoms] = useState(null);
+	const [recordId, setRecordId] = useState();
+
+	let decoded;
+	const user = useSelector((state) => state.user.currentUser);
+	if (user) {
+		decoded = jwtDecode(user?.payload);
+	}
+	const patientId = decoded?.user?.id;
 
 	useEffect(() => {
 		async function fetchData() {
@@ -32,10 +43,36 @@ const PhysicianList = () => {
 		fetchData();
 	}, []);
 
+	const onSave = async () => {
+		try {
+			const { data } = await axios.post(
+				`${BASE_URL}/medical/createRecord`,
+				{
+					patientId,
+					symptoms,
+				}
+			);
+			setRecordId(data.data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const grantAccessToDoctor = async (physicianId) => {
+		try {
+			await axios.post(
+				`${BASE_URL}/medical/medicalRecords/assignDoctor`,
+				{ id: recordId, patientId, physicianId }
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	if (loading) {
 		return <p>Loading...</p>;
 	}
-	const label = { inputProps: { 'aria-label': 'Color switch demo' } };
+	const label = { inputProps: { "aria-label": "Color switch demo" } };
 
 	const columns = [
 		{
@@ -57,11 +94,14 @@ const PhysicianList = () => {
 		{
 			name: "Grant Access",
 			cell: (row) => (
-				<Switch {...label}  color="secondary" />
+				<Switch
+					{...label}
+					color="secondary"
+					onChange={() => grantAccessToDoctor(row.id)}
+				/>
 			),
 		},
 	];
-	
 
 	return (
 		<PhysicianListContainer>
@@ -114,7 +154,7 @@ const PhysicianList = () => {
 				}}
 			>
 				{/* title */}
-				<div
+				{/* <div
 					style={{
 						padding: "2%",
 						fontWeight: "bold",
@@ -122,10 +162,10 @@ const PhysicianList = () => {
 					}}
 				>
 					Physicians List
-				</div>
+				</div> */}
 
 				{/* navigation */}
-				<div style={{ display: "flex", marginLeft: "2%" }}>
+				<div style={{ display: "flex", padding: "2%" }}>
 					<FaHome style={{ color: "#8a8998" }} />
 					<div style={{ marginLeft: "5px", color: "#8a8998" }}>
 						Home
@@ -141,6 +181,52 @@ const PhysicianList = () => {
 						}}
 					>
 						Physicians List
+					</div>
+				</div>
+
+				<div>
+					<div style={{ paddingLeft: "2%", fontWeight: "bold" }}>
+						Symptoms
+					</div>
+					<textarea
+						value={symptoms}
+						onChange={(e) => {
+							setSymptoms(e.target.value);
+						}}
+						style={{
+							padding: "30px",
+							marginTop: "10px",
+							marginLeft: "20px",
+							border: "none",
+							backgroundColor: "#fff",
+							borderRadius: "10px",
+							width: "200px",
+						}}
+					/>
+					<div
+						style={{
+							display: "flex",
+							paddingLeft: "2%",
+						}}
+					>
+						<button
+							onClick={() => {
+								onSave();
+								setSymptoms("");
+							}}
+							style={{
+								backgroundColor: "#ebeae8",
+								color: "#9F76FC",
+								border: "none",
+								padding: "10px 20px",
+								cursor: "pointer",
+								borderRadius: "10px",
+								fontWeight: "bold",
+								marginTop: "1%",
+							}}
+						>
+							Submit
+						</button>
 					</div>
 				</div>
 
@@ -189,7 +275,7 @@ const PhysicianList = () => {
 
 				<div
 					style={{
-						height: "60%",
+						height: "40%",
 						backgroundColor: "#ffffff",
 						margin: "2%",
 						borderRadius: "20px",

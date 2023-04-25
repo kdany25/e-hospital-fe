@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { FaSearch, FaHome } from "react-icons/fa";
-// import { columns, data } from "../../data";
 import {
 	PharmacistListContainer,
 	PharmacistListHeader,
@@ -11,10 +10,20 @@ import {
 import { BASE_URL } from "../../utils/requestMethod";
 import axios from "axios";
 import { Switch } from "@mui/material";
+import jwtDecode from "jwt-decode";
+import { useSelector } from "react-redux";
 
 function PharmacistList() {
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [recordId, setRecordId] = useState();
+
+	let decoded;
+	const user = useSelector((state) => state.user.currentUser);
+	if (user) {
+		decoded = jwtDecode(user?.payload);
+	}
+	const patientId = decoded?.user?.id;
 	useEffect(() => {
 		async function fetchData() {
 			try {
@@ -31,6 +40,34 @@ function PharmacistList() {
 
 		fetchData();
 	}, []);
+
+	useEffect(() => {
+		async function getMedicalRecord() {
+			if (patientId) {
+				try {
+					const response = await axios.get(
+						`${BASE_URL}/medical/medicalRecords?patientId=${patientId}`
+					);
+					setRecordId(response.data?.data[0].id);
+				} catch (error) {
+					console.error(error);
+				}
+			}
+		}
+
+		getMedicalRecord();
+	}, []);
+
+	const grantAccessToPharmacist = async (pharmacistId) => {
+		try {
+			await axios.post(
+				`${BASE_URL}/medical/medicalRecords/assignPharmacist`,
+				{ id: recordId, patientId, pharmacistId }
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	if (loading) {
 		return <p>Loading...</p>;
@@ -56,9 +93,16 @@ function PharmacistList() {
 		},
 		{
 			name: "Grant Access",
-			cell: (row) => <Switch {...label} color="secondary" />,
+			cell: (row) => (
+				<Switch
+					{...label}
+					color="secondary"
+					onChange={() => grantAccessToPharmacist(row.id)}
+				/>
+			),
 		},
 	];
+	console.log(recordId);
 	return (
 		<PharmacistListContainer>
 			{/* Header */}
