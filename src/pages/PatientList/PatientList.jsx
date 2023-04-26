@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { FaSearch, FaComment, FaHome } from "react-icons/fa";
-import { columns, data, numbers } from "../../data";
-import {
-	PListContainer,
-	PatientHeader,
-	Othernumbers,
-	Currentnumber,
-} from "./patientListStyles";
+import { FaSearch, FaHome } from "react-icons/fa";
+import { PListContainer, PatientHeader } from "./patientListStyles";
 import jwtDecode from "jwt-decode";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -74,9 +68,18 @@ function PatientList() {
 		{
 			name: "View",
 			cell: (row) => (
-				<Link to={"/consultation/" + row.id}>
-					<button className="userListEdit">Edit</button>
-				</Link>
+				<>
+					{pharmacistId && (
+						<Link to={"/prescription/" + row.id}>
+							<button className="userListEdit">Prescribe</button>
+						</Link>
+					)}
+					{physicianId && (
+						<Link to={"/consultation/" + row.id}>
+							<button className="userListEdit">Consultate</button>
+						</Link>
+					)}
+				</>
 			),
 		},
 	];
@@ -222,13 +225,6 @@ function PatientList() {
 						Patients List
 					</div>
 					<DataTable columns={columns} data={data}></DataTable>
-				</div>
-				<div style={{ display: "flex" }}>
-					<Currentnumber>1</Currentnumber>
-					<Othernumbers>2</Othernumbers>
-					<Othernumbers>3</Othernumbers>
-					<Othernumbers>4</Othernumbers>
-					<Othernumbers>5</Othernumbers>
 				</div>
 			</div>
 		</PListContainer>

@@ -32,6 +32,7 @@ function PatientResult() {
 
 		fetchData();
 	}, []);
+	console.log(data);
 	return (
 		<RContainer>
 			<RHeader>
@@ -112,9 +113,12 @@ function PatientResult() {
 						position: "relative",
 					}}
 				>
-					<div style={{ padding: "2%", fontWeight: "bold" }}>
-						Patient Id: {decoded.user.id}
-					</div>
+					{data && (
+						<div style={{ padding: "2%", fontWeight: "bold" }}>
+							Record Id: {data[0]?.id}
+						</div>
+					)}
+
 					<div
 						style={{
 							display: "flex",

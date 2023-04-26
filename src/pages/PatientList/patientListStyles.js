@@ -11,22 +11,3 @@ export const PatientHeader = styled.div`
 	display: flex;
 	justify-content: space-between;
 `;
-export const Currentnumber = styled.div`
-	background-color: #9f76fc;
-	margin-left: 2%;
-	margin-top: 1%;
-	height: 20px;
-	width: 20px;
-	padding: 1%;
-	text-align: center;
-	border-radius: 10px;
-`;
-export const Othernumbers = styled.div`
-	padding: 1%;
-	margin-left: 2%;
-	margin-top: 1%;
-	height: 10px;
-	width: 10px;
-	padding: 1%;
-	text-align: center;
-`;

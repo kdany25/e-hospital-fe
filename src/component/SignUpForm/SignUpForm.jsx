@@ -87,7 +87,7 @@ function SignUpForm() {
 								id="username"
 								placeholder="Type your username"
 								onChange={(e, v) =>
-									handleChange("username", e.target.value)
+									handleChange("userName", e.target.value)
 								}
 							/>
 						</Element>
@@ -151,6 +151,7 @@ function SignUpForm() {
 								<option value="FEMALE">FEMALE</option>
 							</Select>
 						</Element>
+
 						<Element>
 							<Label>
 								<label htmlFor="Gender">Role:</label>
@@ -161,9 +162,9 @@ function SignUpForm() {
 									handleChange("role", e.target.value)
 								}
 							>
-								<option value="MALE">Patient</option>
-								<option value="FEMALE">Physian</option>
-								<option value="MALE">Pharmacist</option>
+								<option value="PATIENT">Patient</option>
+								<option value="PHYSICIAN">Physian</option>
+								<option value="PHARMACIST">Pharmacist</option>
 							</Select>
 						</Element>
 

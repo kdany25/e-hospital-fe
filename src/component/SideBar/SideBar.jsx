@@ -17,8 +17,6 @@ import {
 	linkItems,
 	Logo,
 	LogIcon,
-	linkItemsClicked,
-	HrefLinksClicked,
 } from "./SideBarStyles";
 import FloatingImages from "../FloatingImage/FloatingImage";
 import Categories from "../Categories/Categories";
@@ -42,23 +40,23 @@ function SideBar() {
 			<BsArrowLeftShort style={BackIcon} onClick={() => setOpen(!open)} />
 			<MenuHolder>
 				<MenuList>
-					{decoded?.user?.role === "PHARMACIST" ||
-						(decoded?.user?.role === "PHYSICIAN" && (
-							<Link to="/patients" className="link">
-								<li style={linkItemsClicked}>
-									<HrefLinksClicked>
-										<FaUser />
-										<span
-											style={{
-												marginLeft: "8px",
-											}}
-										>
-											Patients
-										</span>
-									</HrefLinksClicked>
-								</li>
-							</Link>
-						))}
+					{(decoded?.user?.role === "PHARMACIST" ||
+						decoded?.user?.role === "PHYSICIAN") && (
+						<Link to="/patients" className="link">
+							<li style={linkItems}>
+								<HrefLinks>
+									<FaUser />
+									<span
+										style={{
+											marginLeft: "8px",
+										}}
+									>
+										Patients
+									</span>
+								</HrefLinks>
+							</li>
+						</Link>
+					)}
 					{decoded?.user?.role === "PATIENT" && (
 						<Link to="/physicians" className="link">
 							<li style={linkItems}>
@@ -112,7 +110,7 @@ function SideBar() {
 					)}
 
 					{decoded?.user?.role === "PHARMACIST" && (
-						<Link to="/result" className="link">
+						<Link to="/medecines" className="link">
 							<li style={linkItems}>
 								<HrefLinks>
 									<FaListAlt />
@@ -122,7 +120,7 @@ function SideBar() {
 											marginLeft: "8px",
 										}}
 									>
-										List of Medicines
+										Upload Medicines
 									</span>
 								</HrefLinks>
 							</li>

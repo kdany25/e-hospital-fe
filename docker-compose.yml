@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  authentication:
+    image: "199919741969/user-auth-service"
+    ports: 
+      - '8080:8080'
+    networks:
+      - backendnetwork
+    container_name: authentication
+    restart: always
+
+  medicalUnitService: 
+    image: "199919741969/medicalunit"
+    ports:
+     - '8181:8181'
+    networks:
+      - backendnetwork
+    container_name: medicalUnitService
+    restart: always
+
+  apigetway: 
+    image: "199919741969/medicalgetway"
+    environment:
+      - BASE_URL_AUTH=http://authentication:8080/user-auth-service
+      - BASE_URL_MEDICAL_UNIT=http://medicalUnitService:8181
+    ports:
+     - '3001:3001'
+    networks:
+      - backendnetwork
+    container_name: apigetway
+    depends_on:
+      - authentication
+      - medicalUnitService
+    restart: always
+
+  medicalFront: 
+    image: "199919741969/frontmedical"
+    ports:
+     - '3000:3000'
+    depends_on:
+      - apigetway
+    restart: always
+networks:
+  backendnetwork:
+
+  
+    
