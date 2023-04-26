@@ -40,23 +40,13 @@ export const HrefLinks = styled.a`
 	text-decoration: none;
 	font-weight: bold;
 `;
-export const HrefLinksClicked = styled.a`
-	display: flex;
-	alignitems: center;
-	color: #ffffff;
-	text-decoration: none;
-	font-weight: bold;
-`;
+
 export const linkItems = {
 	padding: "20px",
 	borderRadius: "20px",
 	fontSize: "14px",
 };
-export const linkItemsClicked = {
-	padding: "20px",
-	borderRadius: "20px",
-	backgroundColor: "#9f76fc",
-};
+
 
 export const Logo = styled(LinkR)`
 	color: #8a8998;

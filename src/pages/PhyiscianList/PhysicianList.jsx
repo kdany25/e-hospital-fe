@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { FaSearch, FaHome } from "react-icons/fa";
-import {
-	PhysicianListContainer,
-	PhysicianListHeader,
-	PhysicianListCurrentnumber,
-	PhysicianListOthernumbers,
-} from "./PhysicianStyle";
+import { PhysicianListContainer, PhysicianListHeader } from "./PhysicianStyle";
 import { BASE_URL } from "../../utils/requestMethod";
 import axios from "axios";
 import { Switch } from "@mui/material";
@@ -291,13 +286,6 @@ const PhysicianList = () => {
 						Physicians List
 					</div>
 					<DataTable columns={columns} data={data}></DataTable>
-				</div>
-				<div style={{ display: "flex" }}>
-					<PhysicianListCurrentnumber>1</PhysicianListCurrentnumber>
-					<PhysicianListOthernumbers>2</PhysicianListOthernumbers>
-					<PhysicianListOthernumbers>3</PhysicianListOthernumbers>
-					<PhysicianListOthernumbers>4</PhysicianListOthernumbers>
-					<PhysicianListOthernumbers>5</PhysicianListOthernumbers>
 				</div>
 			</div>
 		</PhysicianListContainer>

@@ -4,8 +4,6 @@ import { FaSearch, FaHome } from "react-icons/fa";
 import {
 	PharmacistListContainer,
 	PharmacistListHeader,
-	PharmacistListCurrentnumber,
-	PharmacistListOthernumbers,
 } from "./PharmacistStyles";
 import { BASE_URL } from "../../utils/requestMethod";
 import axios from "axios";
@@ -245,13 +243,6 @@ function PharmacistList() {
 						Pharmacist List
 					</div>
 					<DataTable columns={columns} data={data}></DataTable>
-				</div>
-				<div style={{ display: "flex" }}>
-					<PharmacistListCurrentnumber>1</PharmacistListCurrentnumber>
-					<PharmacistListOthernumbers>2</PharmacistListOthernumbers>
-					<PharmacistListOthernumbers>3</PharmacistListOthernumbers>
-					<PharmacistListOthernumbers>4</PharmacistListOthernumbers>
-					<PharmacistListOthernumbers>5</PharmacistListOthernumbers>
 				</div>
 			</div>
 		</PharmacistListContainer>

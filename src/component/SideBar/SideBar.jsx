@@ -17,8 +17,6 @@ import {
 	linkItems,
 	Logo,
 	LogIcon,
-	linkItemsClicked,
-	HrefLinksClicked,
 } from "./SideBarStyles";
 import FloatingImages from "../FloatingImage/FloatingImage";
 import Categories from "../Categories/Categories";
@@ -45,8 +43,8 @@ function SideBar() {
 					{(decoded?.user?.role === "PHARMACIST" ||
 						decoded?.user?.role === "PHYSICIAN") && (
 						<Link to="/patients" className="link">
-							<li style={linkItemsClicked}>
-								<HrefLinksClicked>
+							<li style={linkItems}>
+								<HrefLinks>
 									<FaUser />
 									<span
 										style={{
@@ -55,7 +53,7 @@ function SideBar() {
 									>
 										Patients
 									</span>
-								</HrefLinksClicked>
+								</HrefLinks>
 							</li>
 						</Link>
 					)}
