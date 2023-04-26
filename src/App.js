@@ -24,6 +24,7 @@ import PharmacistList from "./pages/PharmacistList/PharmacistList";
 import ConsultationPage from "./pages/patientConsultationPage/ConsultationPage";
 import PharmacistPrescription from "./pages/Pharmacist-prescription/Pharmacist-Prescription";
 import PatientResult from "./pages/PatientResult/PatientResult";
+import Medecines from "./pages/AddMedicines/Medecines";
 
 function App() {
 	let decoded;
@@ -59,6 +60,9 @@ function App() {
 									</Route>
 									<Route exact path="/prescription/:id">
 										<PharmacistPrescription />
+									</Route>
+									<Route exact path="/medecines">
+										<Medecines />
 									</Route>
 								</>
 							)}

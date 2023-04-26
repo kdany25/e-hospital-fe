@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ConsContainer, ConstHeader, InfosWrapper } from "./consultationStyles";
-import { FaSearch, FaComment, FaHome } from "react-icons/fa";
-import MyEditor from "../../component/TextEdior/MyEditor";
+import { FaSearch, FaHome } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import { useSelector } from "react-redux";

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
 	PPContainer,
 	PPHeader,
@@ -11,9 +11,71 @@ import {
 	FaUser,
 	FaNotesMedical,
 } from "react-icons/fa";
-import AutocompleteMui from "../../component/AutoComplete/AutoCompleteMeds";
+import { useParams } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../../utils/requestMethod";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
 
 function PharmacistPrescription() {
+	const { id } = useParams();
+	const [data, setData] = useState(null);
+	const [medecines, setMedecines] = useState(null);
+	const [selectedValues, setSelectedValues] = React.useState([]);
+	let decoded;
+	const user = useSelector((state) => state.user.currentUser);
+	if (user) {
+		decoded = jwtDecode(user?.payload);
+	}
+
+	let pharmacistId;
+	if (decoded?.user?.role === "PHARMACIST") {
+		pharmacistId = decoded?.user?.id;
+	}
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const response = await axios.get(
+					`${BASE_URL}/medical/medicalRecords?pharmacistId=${pharmacistId}`
+				);
+				setData(response.data?.data[0]);
+			} catch (error) {
+				console.error(error);
+			}
+		}
+
+		async function fetchMedecine() {
+			try {
+				const response = await axios.get(
+					`${BASE_URL}/medical/allMedecines`
+				);
+				setMedecines(response.data?.data);
+			} catch (error) {
+				console.error(error);
+			}
+		}
+
+		fetchData();
+		fetchMedecine();
+	}, [id]);
+
+	const assignMedecine = async (medName, medPrice, medExpiration) => {
+		await axios
+			.post(`${BASE_URL}/medical/prescribeMedecine`, {
+				recordId: id,
+				pharmacistId,
+				medName,
+				medPrice,
+				medExpiration,
+			})
+			.then((res) => {})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 	const today = new Date();
 	return (
 		<PPContainer>
@@ -106,7 +168,7 @@ function PharmacistPrescription() {
 					}}
 				>
 					<div style={{ padding: "2%", fontWeight: "bold" }}>
-						Patient Id: #2345
+						Record Id: {id}
 					</div>
 					<div
 						style={{
@@ -180,27 +242,9 @@ function PharmacistPrescription() {
 								</div>
 								<div style={{ color: "#8a8998" }}>
 									<div style={{ padding: "1%" }}>
-										Full name: Kabalisa dany
-									</div>
-									<div style={{ padding: "1%" }}>
-										Email: kabadany88@gmail.com
-									</div>
-									<div style={{ padding: "1%" }}>
-										Phone: +250 788 730 199
+										Patient Id: {data?.patientId}
 									</div>
 								</div>
-								<button
-									style={{
-										backgroundColor: "#ebeae8",
-										color: "#9F76FC",
-										border: "none",
-										padding: "10px 20px",
-										cursor: "pointer",
-										borderRadius: "10px",
-									}}
-								>
-									View Profile
-								</button>
 							</div>
 						</div>
 						<div
@@ -243,10 +287,7 @@ function PharmacistPrescription() {
 								<div
 									style={{ padding: "1%", color: "#8a8998" }}
 								>
-									Lorem ipsum dolor sit amet, consectetur
-									adipiscing elit. Integer tempus sem at mi
-									lacinia ultricies. In elementum sapien
-									mattis justo luctus
+									{data?.consultation}
 								</div>
 							</div>
 						</div>
@@ -259,7 +300,34 @@ function PharmacistPrescription() {
 						}}
 					/>
 					<div style={{ width: "30%", padding: "2%" }}>
-						<AutocompleteMui />
+						<Autocomplete
+							multiple
+							id="medicine-selection"
+							options={medecines || []}
+							getOptionLabel={(option) => option.medName}
+							value={selectedValues}
+							onChange={(event, newValue) => {
+								setSelectedValues(newValue);
+								assignMedecine(
+									newValue[0].medName,
+									newValue[0].medPrice,
+									newValue[0].medExpiration
+								);
+							}}
+							renderInput={(params) => (
+								<TextField
+									{...params}
+									variant="outlined"
+									label="Medicine"
+									placeholder="Select"
+								/>
+							)}
+							renderOption={(option) => (
+								<div>
+									<div>{option?.medName}</div>
+								</div>
+							)}
+						/>
 					</div>
 					<div
 						style={{

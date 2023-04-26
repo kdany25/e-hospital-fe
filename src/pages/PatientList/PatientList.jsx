@@ -74,9 +74,18 @@ function PatientList() {
 		{
 			name: "View",
 			cell: (row) => (
-				<Link to={"/consultation/" + row.id}>
-					<button className="userListEdit">Edit</button>
-				</Link>
+				<>
+					{pharmacistId && (
+						<Link to={"/prescription/" + row.id}>
+							<button className="userListEdit">Prescribe</button>
+						</Link>
+					)}
+					{physicianId && (
+						<Link to={"/consultation/" + row.id}>
+							<button className="userListEdit">Consultate</button>
+						</Link>
+					)}
+				</>
 			),
 		},
 	];
