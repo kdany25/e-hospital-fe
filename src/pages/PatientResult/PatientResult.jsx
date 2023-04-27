@@ -46,17 +46,19 @@ function PatientResult() {
 
 	const handleDownload = async () => {
 		try {
-			const response = await axios
-				.get(`${BASE_URL}/medical/downLoadCSV?recordId=${data[0]?.id}`)
-				.then(() => {});
-			const csvData = await response.text();
-			const blob = new Blob([csvData], {
-				type: "text/csv;charset=utf-8",
-			});
-			FileSaver.saveAs(blob, "subscriptions.csv");
+			const response = await fetch(
+				`${BASE_URL}/medical/downLoadCSV?patientId=${decoded.user?.id}`
+			);
+			const data = await response.text();
+			const url = window.URL.createObjectURL(new Blob([data]));
+			const link = document.createElement("a");
+			link.href = url;
+			link.setAttribute("download", "subscriptions.csv");
+			document.body.appendChild(link);
+			link.click();
+			toast.success("subscriptions downloaded");
 		} catch (error) {
 			toast.error("failed");
-			console.error(error);
 		}
 	};
 
