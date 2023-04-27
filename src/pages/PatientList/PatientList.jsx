@@ -6,7 +6,7 @@ import jwtDecode from "jwt-decode";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../utils/requestMethod";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../../utils/apiCalls";
 
@@ -55,7 +55,6 @@ function PatientList() {
 
 	const handleClick = (e) => {
 		logOutUser(states, dispatch);
-		<Redirect to="/login" />;
 	};
 
 	if (loading) {
@@ -123,18 +122,20 @@ function PatientList() {
 
 				<div style={{ display: "flex" }}>
 					<div style={{ padding: "15px" }}>
-						<button
-							onClick={() => handleClick()}
-							style={{
-								padding: "8px",
-								borderRadius: "10px",
-								border: "2px solid #8a8998",
-								color: "#9F76FC",
-								fontWeight: "bold",
-							}}
-						>
-							Logout
-						</button>
+					<Link to="/">
+							<button
+								onClick={() => handleClick()}
+								style={{
+									padding: "8px",
+									borderRadius: "10px",
+									border: "2px solid #8a8998",
+									color: "#9F76FC",
+									fontWeight: "bold",
+								}}
+							>
+								Logout
+							</button>
+						</Link>
 					</div>
 				</div>
 			</PatientHeader>
@@ -177,7 +178,7 @@ function PatientList() {
 					</div>
 				</div>
 
-				{/* Sorting */}
+			
 
 				<div
 					style={{

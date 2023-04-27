@@ -10,7 +10,7 @@ import { FaSearch, FaHome } from "react-icons/fa";
 import DataTable from "react-data-table-component";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../../utils/apiCalls";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function Medecines() {
@@ -41,7 +41,6 @@ function Medecines() {
 	};
 	const handleClick = (e) => {
 		logOutUser(states, dispatch);
-		<Redirect to="/login" />;
 	};
 
 	const onSaveMedecine = async () => {
@@ -59,7 +58,7 @@ function Medecines() {
 			selector: (row) => row.medName,
 		},
 		{
-			name: "Patient Id",
+			name: "Price",
 			selector: (row) => row.medPrice,
 		},
 		{
@@ -97,18 +96,20 @@ function Medecines() {
 
 				<div style={{ display: "flex" }}>
 					<div style={{ padding: "20px" }}>
-					<button
-							onClick={() => handleClick()}
-							style={{
-								padding: "8px",
-								borderRadius: "10px",
-								border: "2px solid #8a8998",
-								color: "#9F76FC",
-								fontWeight: "bold",
-							}}
-						>
-							Logout
-						</button>
+						<Link to="/">
+							<button
+								onClick={() => handleClick()}
+								style={{
+									padding: "8px",
+									borderRadius: "10px",
+									border: "2px solid #8a8998",
+									color: "#9F76FC",
+									fontWeight: "bold",
+								}}
+							>
+								Logout
+							</button>
+						</Link>
 					</div>
 				</div>
 			</ConstHeader>

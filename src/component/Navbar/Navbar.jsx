@@ -15,7 +15,6 @@ const Navbar = () => {
 	const handleClick = () => setClick(!click);
 	const closeMobileMenu = () => setClick(false);
 	const location = useLocation();
-	console.log(location.pathname);
 
 	return (
 		<Nav>

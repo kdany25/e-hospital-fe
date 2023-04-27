@@ -10,7 +10,7 @@ import axios from "axios";
 import { Switch } from "@mui/material";
 import jwtDecode from "jwt-decode";
 import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../../utils/apiCalls";
 
@@ -107,7 +107,6 @@ function PharmacistList() {
 	];
 	const handleClick = (e) => {
 		logOutUser(states, dispatch);
-		<Redirect to="/login" />;
 	};
 	return (
 		<PharmacistListContainer>
@@ -140,18 +139,20 @@ function PharmacistList() {
 
 				<div style={{ display: "flex" }}>
 					<div style={{ padding: "15px" }}>
-						<button
-							onClick={() => handleClick()}
-							style={{
-								padding: "8px",
-								borderRadius: "10px",
-								border: "2px solid #8a8998",
-								color: "#9F76FC",
-								fontWeight: "bold",
-							}}
-						>
-							Logout
-						</button>
+						<Link to="/">
+							<button
+								onClick={() => handleClick()}
+								style={{
+									padding: "8px",
+									borderRadius: "10px",
+									border: "2px solid #8a8998",
+									color: "#9F76FC",
+									fontWeight: "bold",
+								}}
+							>
+								Logout
+							</button>
+						</Link>
 					</div>
 				</div>
 			</PharmacistListHeader>
@@ -191,49 +192,6 @@ function PharmacistList() {
 						}}
 					>
 						Pharmacist List
-					</div>
-				</div>
-
-				{/* Sorting */}
-				<div
-					style={{ display: "flex", justifyContent: "space-between" }}
-				>
-					<div>
-						<select
-							placeholder="Search"
-							style={{
-								padding: "12px",
-								marginTop: "20px",
-								marginLeft: "20px",
-								border: "none",
-								backgroundColor: "#ffffff",
-								borderRadius: "10px",
-								width: "200px",
-								color: "#8a8998",
-							}}
-						>
-							<option value="MALE">All</option>
-							<option value="FEMALE">Allowed</option>
-						</select>
-					</div>
-					<div>
-						<select
-							placeholder="Search"
-							style={{
-								padding: "12px",
-								marginTop: "20px",
-								marginLeft: "20px",
-								border: "none",
-								backgroundColor: "#ffffff",
-								borderRadius: "10px",
-								width: "200px",
-								marginRight: "20px",
-								color: "#8a8998",
-							}}
-						>
-							<option value="MALE">Sorting (A-Z)</option>
-							<option value="FEMALE">Sorting (Z-A)</option>
-						</select>
 					</div>
 				</div>
 

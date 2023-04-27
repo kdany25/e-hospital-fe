@@ -60,7 +60,6 @@ function ConsultationPage() {
 	};
 	const handleClick = (e) => {
 		logOutUser(states, dispatch);
-		<Redirect to="/login" />;
 	};
 
 	return (
@@ -93,18 +92,20 @@ function ConsultationPage() {
 
 				<div style={{ display: "flex" }}>
 					<div style={{ padding: "15px" }}>
-						<button
-							onClick={() => handleClick()}
-							style={{
-								padding: "8px",
-								borderRadius: "10px",
-								border: "2px solid #8a8998",
-								color: "#9F76FC",
-								fontWeight: "bold",
-							}}
-						>
-							Logout
-						</button>
+					<Link to="/">
+							<button
+								onClick={() => handleClick()}
+								style={{
+									padding: "8px",
+									borderRadius: "10px",
+									border: "2px solid #8a8998",
+									color: "#9F76FC",
+									fontWeight: "bold",
+								}}
+							>
+								Logout
+							</button>
+						</Link>
 					</div>
 				</div>
 			</ConstHeader>
@@ -254,29 +255,6 @@ function ConsultationPage() {
 										onEditorChange={handleEditorChange}
 									/>
 								</div>
-							</div>
-						</div>
-						<div
-							style={{
-								width: "40%",
-								margin: "2%",
-								height: "40%",
-								borderRadius: "20px",
-								border: "2px solid #f2f2f2",
-							}}
-						>
-							<div
-								style={{
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-									padding: "2%",
-								}}
-							>
-								<img
-									src="https://i.ibb.co/jgg3hQR/random-Photo-Room-png-Photo-Room.png"
-									style={{ height: "300px", width: "250px" }}
-								/>
 							</div>
 						</div>
 					</div>

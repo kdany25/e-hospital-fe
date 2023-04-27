@@ -39,7 +39,6 @@ function PatientResult() {
 	}, []);
 	const handleClick = (e) => {
 		logOutUser(states, dispatch);
-		<Redirect to="/login" />;
 	};
 
 	return (
@@ -72,18 +71,20 @@ function PatientResult() {
 
 				<div style={{ display: "flex" }}>
 					<div style={{ padding: "15px" }}>
-						<button
-							onClick={() => handleClick()}
-							style={{
-								padding: "8px",
-								borderRadius: "10px",
-								border: "2px solid #8a8998",
-								color: "#9F76FC",
-								fontWeight: "bold",
-							}}
-						>
-							Logout
-						</button>
+						<Link to="/">
+							<button
+								onClick={() => handleClick()}
+								style={{
+									padding: "8px",
+									borderRadius: "10px",
+									border: "2px solid #8a8998",
+									color: "#9F76FC",
+									fontWeight: "bold",
+								}}
+							>
+								Logout
+							</button>
+						</Link>
 					</div>
 				</div>
 			</RHeader>
@@ -226,8 +227,16 @@ function PatientResult() {
 							marginTop: "2%",
 						}}
 					/>
-					<div style={{ width: "30%", padding: "2%" }}>
-						<MedicinesTable />
+					<div
+						style={{
+							width: "90%",
+							padding: "2%",
+							border: "2px solid #ebeae8",
+							marginLeft: "2%",
+							borderRadius: "15px",
+						}}
+					>
+						<MedicinesTable data={data ? data[0].medicines : []} />
 					</div>
 					<div
 						style={{

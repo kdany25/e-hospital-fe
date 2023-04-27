@@ -18,7 +18,7 @@ import axios from "axios";
 import { BASE_URL } from "../../utils/requestMethod";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../../utils/apiCalls";
 
@@ -26,7 +26,11 @@ function PharmacistPrescription() {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
 	const [medecines, setMedecines] = useState(null);
-	const [selectedValues, setSelectedValues] = React.useState([]);
+	const [selectedMedicine, setSelectedMedicine] = useState(null);
+
+	const handleMedicineChange = (event, value) => {
+		setSelectedMedicine(value);
+	};
 	const dispatch = useDispatch();
 
 	const states = useSelector((state) => state.user);
@@ -68,11 +72,11 @@ function PharmacistPrescription() {
 		fetchMedecine();
 	}, [id]);
 
-	const assignMedecine = async (medName, medPrice, medExpiration) => {
+	const assignMedecine = async () => {
+		const { medName, medPrice, medExpiration } = selectedMedicine;
 		await axios
 			.post(`${BASE_URL}/medical/prescribeMedecine`, {
 				recordId: id,
-				pharmacistId,
 				medName,
 				medPrice,
 				medExpiration,
@@ -85,8 +89,8 @@ function PharmacistPrescription() {
 	const today = new Date();
 	const handleClick = (e) => {
 		logOutUser(states, dispatch);
-		<Redirect to="/login" />;
 	};
+
 	return (
 		<PPContainer>
 			<PPHeader>
@@ -117,18 +121,20 @@ function PharmacistPrescription() {
 
 				<div style={{ display: "flex" }}>
 					<div style={{ padding: "20px" }}>
-						<button
-							onClick={() => handleClick()}
-							style={{
-								padding: "8px",
-								borderRadius: "10px",
-								border: "2px solid #8a8998",
-								color: "#9F76FC",
-								fontWeight: "bold",
-							}}
-						>
-							Logout
-						</button>
+					<Link to="/">
+							<button
+								onClick={() => handleClick()}
+								style={{
+									padding: "8px",
+									borderRadius: "10px",
+									border: "2px solid #8a8998",
+									color: "#9F76FC",
+									fontWeight: "bold",
+								}}
+							>
+								Logout
+							</button>
+						</Link>
 					</div>
 				</div>
 			</PPHeader>
@@ -315,32 +321,22 @@ function PharmacistPrescription() {
 					/>
 					<div style={{ width: "30%", padding: "2%" }}>
 						<Autocomplete
-							multiple
-							id="medicine-selection"
+							id="medicine-selector"
 							options={medecines || []}
 							getOptionLabel={(option) => option.medName}
-							value={selectedValues}
-							onChange={(event, newValue) => {
-								setSelectedValues(newValue);
-								assignMedecine(
-									newValue[0].medName,
-									newValue[0].medPrice,
-									newValue[0].medExpiration
-								);
-							}}
+							value={selectedMedicine}
+							onChange={handleMedicineChange}
 							renderInput={(params) => (
 								<TextField
 									{...params}
+									label="Select a medicine"
 									variant="outlined"
-									label="Medicine"
-									placeholder="Select"
 								/>
 							)}
-							renderOption={(option) => (
-								<div>
-									<div>{option?.medName}</div>
-								</div>
-							)}
+							disablePortal
+							isOptionEqualToValue={(option, value) =>
+								option.medName === value.medName
+							}
 						/>
 					</div>
 					<div
@@ -351,6 +347,7 @@ function PharmacistPrescription() {
 						}}
 					>
 						<button
+							onClick={() => assignMedecine()}
 							style={{
 								backgroundColor: "#9F76FC",
 								color: "#fff",
