@@ -5,7 +5,7 @@ export const PListContainer = styled.div`
 `;
 
 export const PatientHeader = styled.div`
-	height: 10%;
+	height: 8%;
 	width: 100%;
 	background-color: #ffffff;
 	display: flex;

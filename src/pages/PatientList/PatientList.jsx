@@ -6,13 +6,17 @@ import jwtDecode from "jwt-decode";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../utils/requestMethod";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../../utils/apiCalls";
 
 function PatientList() {
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const dispatch = useDispatch();
 
 	let decoded;
+	const states = useSelector((state) => state.user);
 	const user = useSelector((state) => state.user.currentUser);
 	if (user) {
 		decoded = jwtDecode(user?.payload);
@@ -48,6 +52,11 @@ function PatientList() {
 
 		fetchData();
 	}, []);
+
+	const handleClick = (e) => {
+		logOutUser(states, dispatch);
+		<Redirect to="/login" />;
+	};
 
 	if (loading) {
 		return <p>Loading...</p>;
@@ -114,14 +123,18 @@ function PatientList() {
 
 				<div style={{ display: "flex" }}>
 					<div style={{ padding: "15px" }}>
-						<img
-							src="https://i.ibb.co/HPxf0vW/pic-Photo-Room.png"
+						<button
+							onClick={() => handleClick()}
 							style={{
-								height: "40px",
-								width: "40px",
-								borderRadius: "50%",
+								padding: "8px",
+								borderRadius: "10px",
+								border: "2px solid #8a8998",
+								color: "#9F76FC",
+								fontWeight: "bold",
 							}}
-						/>
+						>
+							Logout
+						</button>
 					</div>
 				</div>
 			</PatientHeader>
@@ -165,47 +178,6 @@ function PatientList() {
 				</div>
 
 				{/* Sorting */}
-				<div
-					style={{ display: "flex", justifyContent: "space-between" }}
-				>
-					<div>
-						<select
-							placeholder="Search"
-							style={{
-								padding: "12px",
-								marginTop: "20px",
-								marginLeft: "20px",
-								border: "none",
-								backgroundColor: "#ffffff",
-								borderRadius: "10px",
-								width: "200px",
-								color: "#8a8998",
-							}}
-						>
-							<option value="MALE">All</option>
-							<option value="FEMALE">Allowed</option>
-						</select>
-					</div>
-					<div>
-						<select
-							placeholder="Search"
-							style={{
-								padding: "12px",
-								marginTop: "20px",
-								marginLeft: "20px",
-								border: "none",
-								backgroundColor: "#ffffff",
-								borderRadius: "10px",
-								width: "200px",
-								marginRight: "20px",
-								color: "#8a8998",
-							}}
-						>
-							<option value="MALE">Sorting (A-Z)</option>
-							<option value="FEMALE">Sorting (Z-A)</option>
-						</select>
-					</div>
-				</div>
 
 				<div
 					style={{
@@ -224,7 +196,7 @@ function PatientList() {
 					>
 						Patients List
 					</div>
-					<DataTable columns={columns} data={data}></DataTable>
+					<DataTable columns={columns} data={data || []}></DataTable>
 				</div>
 			</div>
 		</PListContainer>

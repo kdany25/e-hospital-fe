@@ -23,6 +23,9 @@ function SignUpForm() {
 	const [inputs, setInputs] = useState({});
 	const [shouldRedirect, setShouldRedirect] = useState(false);
 
+	const [formErrors, setFormErrors] = useState([]);
+	const [showPopup, setShowPopup] = useState(false);
+
 	const handleTogglePassword = () => {
 		setShowPassword((prevState) => !prevState);
 	};
@@ -129,8 +132,8 @@ function SignUpForm() {
 							</Label>
 
 							<Inputs
-								type="Phone"
-								id="Phone"
+								type="age"
+								id="age"
 								placeholder="Type your Age"
 								onChange={(e, v) =>
 									handleChange("age", e.target.value)
@@ -147,6 +150,7 @@ function SignUpForm() {
 									handleChange("gender", e.target.value)
 								}
 							>
+								<option value="">Select gender</option>
 								<option value="MALE">MALE</option>
 								<option value="FEMALE">FEMALE</option>
 							</Select>
@@ -162,6 +166,7 @@ function SignUpForm() {
 									handleChange("role", e.target.value)
 								}
 							>
+								<option value="">Select Role</option>
 								<option value="PATIENT">Patient</option>
 								<option value="PHYSICIAN">Physian</option>
 								<option value="PHARMACIST">Pharmacist</option>

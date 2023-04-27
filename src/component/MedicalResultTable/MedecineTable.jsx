@@ -29,7 +29,7 @@ const MedicinesTable = ({ data }) => {
 
 	return (
 		<div>
-			<DataTable columns={columns} data={medicines} />
+			<DataTable columns={columns} data={medicines || []} />
 		</div>
 	);
 };

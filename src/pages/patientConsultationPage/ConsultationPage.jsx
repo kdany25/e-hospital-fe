@@ -7,12 +7,17 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../utils/requestMethod";
 import { Editor } from "@tinymce/tinymce-react";
+import { Link, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../../utils/apiCalls";
 
 function ConsultationPage() {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
 	const [consultation, setConsultation] = useState(null);
+	const dispatch = useDispatch();
 	let decoded;
+	const states = useSelector((state) => state.user);
 	const user = useSelector((state) => state.user.currentUser);
 	if (user) {
 		decoded = jwtDecode(user?.payload);
@@ -53,6 +58,10 @@ function ConsultationPage() {
 			console.error(error);
 		}
 	};
+	const handleClick = (e) => {
+		logOutUser(states, dispatch);
+		<Redirect to="/login" />;
+	};
 
 	return (
 		<ConsContainer>
@@ -83,15 +92,19 @@ function ConsultationPage() {
 				</div>
 
 				<div style={{ display: "flex" }}>
-					<div style={{ padding: "20px" }}>
-						<img
-							src="https://i.ibb.co/HPxf0vW/pic-Photo-Room.png"
+					<div style={{ padding: "15px" }}>
+						<button
+							onClick={() => handleClick()}
 							style={{
-								height: "40px",
-								width: "40px",
-								borderRadius: "50%",
+								padding: "8px",
+								borderRadius: "10px",
+								border: "2px solid #8a8998",
+								color: "#9F76FC",
+								fontWeight: "bold",
 							}}
-						/>
+						>
+							Logout
+						</button>
 					</div>
 				</div>
 			</ConstHeader>

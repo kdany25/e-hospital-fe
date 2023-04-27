@@ -1,6 +1,8 @@
 import React from "react";
 import Navbar from "../../component/Navbar/Navbar";
 import LoginForm from "../../component/LoginForm/LoginForm";
+import { Link } from "react-router-dom";
+import { logOutUser } from "../../utils/apiCalls";
 
 const Login = () => {
 	return (
@@ -28,11 +30,21 @@ const Login = () => {
 							fontSize: "20px",
 						}}
 					>
-						<h5 style={{ fontFamily: "Montserrat, sans-serif" }}>
+						<div style={{ fontFamily: "Montserrat, sans-serif" }}>
 							if you don't have an account
 							<br />
-							You can register here
-						</h5>
+							You can{" "}
+							<Link to="/signup">
+								<span
+									style={{
+										color: "#9f76fc",
+										textDecoration: "none",
+									}}
+								>
+									register here
+								</span>
+							</Link>
+						</div>
 					</div>
 				</div>
 				<LoginForm />

@@ -16,14 +16,20 @@ import jwtDecode from "jwt-decode";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../utils/requestMethod";
-import Autocomplete from '@mui/material/Autocomplete';
+import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import { Link, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../../utils/apiCalls";
 
 function PharmacistPrescription() {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
 	const [medecines, setMedecines] = useState(null);
 	const [selectedValues, setSelectedValues] = React.useState([]);
+	const dispatch = useDispatch();
+
+	const states = useSelector((state) => state.user);
 	let decoded;
 	const user = useSelector((state) => state.user.currentUser);
 	if (user) {
@@ -77,6 +83,10 @@ function PharmacistPrescription() {
 			});
 	};
 	const today = new Date();
+	const handleClick = (e) => {
+		logOutUser(states, dispatch);
+		<Redirect to="/login" />;
+	};
 	return (
 		<PPContainer>
 			<PPHeader>
@@ -107,14 +117,18 @@ function PharmacistPrescription() {
 
 				<div style={{ display: "flex" }}>
 					<div style={{ padding: "20px" }}>
-						<img
-							src="https://i.ibb.co/HPxf0vW/pic-Photo-Room.png"
+						<button
+							onClick={() => handleClick()}
 							style={{
-								height: "40px",
-								width: "40px",
-								borderRadius: "50%",
+								padding: "8px",
+								borderRadius: "10px",
+								border: "2px solid #8a8998",
+								color: "#9F76FC",
+								fontWeight: "bold",
 							}}
-						/>
+						>
+							Logout
+						</button>
 					</div>
 				</div>
 			</PPHeader>

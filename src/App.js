@@ -41,7 +41,10 @@ function App() {
 							<SideBar />
 							{decoded?.user.role === "PATIENT" && (
 								<>
-									<Redirect to="/physicians" />
+									<Redirect to="/" />
+									<Route exact path="/">
+										<PhysicianList />
+									</Route>
 									<Route exact path="/physicians">
 										<PhysicianList />
 									</Route>
@@ -55,7 +58,11 @@ function App() {
 							)}
 							{decoded?.user.role === "PHARMACIST" && (
 								<>
+									<Redirect to="/" />
 									<Route exact path="/">
+										<PatientList />
+									</Route>
+									<Route exact path="/patients">
 										<PatientList />
 									</Route>
 									<Route exact path="/prescription/:id">
@@ -68,7 +75,11 @@ function App() {
 							)}
 							{decoded?.user.role === "PHYSICIAN" && (
 								<>
+									<Redirect to="/" />
 									<Route exact path="/">
+										<PatientList />
+									</Route>
+									<Route exact path="/patients">
 										<PatientList />
 									</Route>
 									<Route exact path="/consultation/:id">

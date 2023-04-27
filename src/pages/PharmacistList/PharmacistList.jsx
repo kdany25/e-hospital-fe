@@ -10,13 +10,18 @@ import axios from "axios";
 import { Switch } from "@mui/material";
 import jwtDecode from "jwt-decode";
 import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../../utils/apiCalls";
 
 function PharmacistList() {
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [recordId, setRecordId] = useState();
+	const dispatch = useDispatch();
 
 	let decoded;
+	const states = useSelector((state) => state.user);
 	const user = useSelector((state) => state.user.currentUser);
 	if (user) {
 		decoded = jwtDecode(user?.payload);
@@ -100,7 +105,10 @@ function PharmacistList() {
 			),
 		},
 	];
-	console.log(recordId);
+	const handleClick = (e) => {
+		logOutUser(states, dispatch);
+		<Redirect to="/login" />;
+	};
 	return (
 		<PharmacistListContainer>
 			{/* Header */}
@@ -132,14 +140,18 @@ function PharmacistList() {
 
 				<div style={{ display: "flex" }}>
 					<div style={{ padding: "15px" }}>
-						<img
-							src="https://i.ibb.co/HPxf0vW/pic-Photo-Room.png"
+						<button
+							onClick={() => handleClick()}
 							style={{
-								height: "40px",
-								width: "40px",
-								borderRadius: "50%",
+								padding: "8px",
+								borderRadius: "10px",
+								border: "2px solid #8a8998",
+								color: "#9F76FC",
+								fontWeight: "bold",
 							}}
-						/>
+						>
+							Logout
+						</button>
 					</div>
 				</div>
 			</PharmacistListHeader>
@@ -242,7 +254,7 @@ function PharmacistList() {
 					>
 						Pharmacist List
 					</div>
-					<DataTable columns={columns} data={data}></DataTable>
+					<DataTable columns={columns} data={data || []}></DataTable>
 				</div>
 			</div>
 		</PharmacistListContainer>

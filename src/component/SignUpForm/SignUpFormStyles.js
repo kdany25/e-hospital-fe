@@ -49,7 +49,7 @@ export const Faeye = {
 };
 
 export const buttonStyle = {
-	backgroundColor: "#2596be",
+	backgroundColor: "#9f76fc",
 	color: "white",
 	padding: 15,
 	borderRadius: "5px",

@@ -8,10 +8,16 @@ import {
 } from "../patientConsultationPage/consultationStyles";
 import { FaSearch, FaHome } from "react-icons/fa";
 import DataTable from "react-data-table-component";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../../utils/apiCalls";
+import { Link, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Medecines() {
 	const [data, setData] = useState();
 	const [inputs, setInputs] = useState({});
+	const states = useSelector((state) => state.user);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		async function fetchData() {
@@ -32,6 +38,10 @@ function Medecines() {
 		setInputs((prev) => {
 			return { ...prev, [key]: e };
 		});
+	};
+	const handleClick = (e) => {
+		logOutUser(states, dispatch);
+		<Redirect to="/login" />;
 	};
 
 	const onSaveMedecine = async () => {
@@ -87,14 +97,18 @@ function Medecines() {
 
 				<div style={{ display: "flex" }}>
 					<div style={{ padding: "20px" }}>
-						<img
-							src="https://i.ibb.co/HPxf0vW/pic-Photo-Room.png"
+					<button
+							onClick={() => handleClick()}
 							style={{
-								height: "40px",
-								width: "40px",
-								borderRadius: "50%",
+								padding: "8px",
+								borderRadius: "10px",
+								border: "2px solid #8a8998",
+								color: "#9F76FC",
+								fontWeight: "bold",
 							}}
-						/>
+						>
+							Logout
+						</button>
 					</div>
 				</div>
 			</ConstHeader>
@@ -103,7 +117,7 @@ function Medecines() {
 					List of Medecines
 				</div>
 				<div style={{ padding: "2%" }}>
-					<DataTable columns={columns} data={data}></DataTable>
+					<DataTable columns={columns} data={data || []}></DataTable>
 				</div>
 				<div style={{ padding: "2%", fontWeight: "bold" }}>
 					upload medecine

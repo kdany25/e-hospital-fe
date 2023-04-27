@@ -8,11 +8,14 @@ import {
 	NavBtn,
 	NavBtnLink,
 } from "./navbarStyles";
+import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
 	const [click, setClick] = useState(false);
 	const handleClick = () => setClick(!click);
 	const closeMobileMenu = () => setClick(false);
+	const location = useLocation();
+	console.log(location.pathname);
 
 	return (
 		<Nav>
@@ -22,13 +25,34 @@ const Navbar = () => {
 					e-hospital
 				</NavLogo>
 				<NavBtn>
-					<NavBtnLink to="/login" onClick={closeMobileMenu}>
+					<NavBtnLink
+						style={
+							location.pathname == "/signup"
+								? {
+										backgroundColor: "#fff",
+										color: "#000",
+										border: "1px solid #8a8998",
+								  }
+								: {}
+						}
+						to="/login"
+						onClick={closeMobileMenu}
+					>
 						Login
 					</NavBtnLink>
 					<NavBtnLink
-						style={{ backgroundColor: "#fff", color: "#000" }}
+						style={
+							location.pathname == "/login" ||
+							location.pathname == "/"
+								? {
+										backgroundColor: "#fff",
+										color: "#000",
+										border: "1px solid #8a8998",
+								  }
+								: {}
+						}
 						sty
-						to="/register"
+						to="/signup"
 						onClick={closeMobileMenu}
 					>
 						Register
