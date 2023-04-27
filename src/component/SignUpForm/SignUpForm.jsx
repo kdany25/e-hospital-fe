@@ -19,6 +19,8 @@ import { BASE_URL } from "../../utils/requestMethod";
 import { Redirect } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const style = {
 	position: "absolute",
@@ -103,22 +105,22 @@ function SignUpForm() {
 			setOpen(true);
 		}
 
-	
-			await axios
-				.post(`${BASE_URL}/auth/register`, inputs)
-				.then((res) => {
-					if (res.status === 200 || res.status === 201) {
-						setShouldRedirect(true);
-					}
-				})
-				.catch((error) => {
-					console.log(inputs);
-				});
-	
+		await axios
+			.post(`${BASE_URL}/auth/register`, inputs)
+			.then((res) => {
+				if (res.status === 200 || res.status === 201) {
+					toast.success("Created Account successfully");
+					setShouldRedirect(true);
+				}
+			})
+			.catch((error) => {
+				toast.error("failed");
+				console.log(inputs);
+			});
 	};
-	// if (shouldRedirect) {
-	// 	return <Redirect to="/login" />;
-	// }
+	if (shouldRedirect) {
+		return <Redirect to="/login" />;
+	}
 	return (
 		<>
 			<Modal
@@ -135,6 +137,7 @@ function SignUpForm() {
 					</div>
 				</Box>
 			</Modal>
+			<ToastContainer />
 			<Container>
 				<Wrapper>
 					<SignUpTitle>Sign Up</SignUpTitle>

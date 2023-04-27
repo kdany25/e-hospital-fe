@@ -33,113 +33,124 @@ function SideBar() {
 
 	return (
 		<SideBarContainer style={{ width: `${open ? "300px" : "50px"}` }}>
-			<Logo to="/">
-				<LogIcon />
-				e-hospital
-			</Logo>
 			<BsArrowLeftShort style={BackIcon} onClick={() => setOpen(!open)} />
-			<MenuHolder>
-				<MenuList>
-					{(decoded?.user?.role === "PHARMACIST" ||
-						decoded?.user?.role === "PHYSICIAN") && (
-						<Link to="/patients" className="link">
-							<li style={linkItems}>
-								<HrefLinks>
-									<FaUser />
-									<span
-										style={{
-											marginLeft: "8px",
-										}}
-									>
-										Patients
-									</span>
-								</HrefLinks>
-							</li>
-						</Link>
-					)}
-					{decoded?.user?.role === "PATIENT" && (
-						<Link to="/physicians" className="link">
-							<li style={linkItems}>
-								<HrefLinks>
-									<FaUserMd />
+			{open && (
+				<>
+					<Logo to="/">
+						<LogIcon />
+						e-hospital
+					</Logo>
 
-									<span
-										style={{
-											marginLeft: "8px",
-										}}
-									>
-										Physicians
-									</span>
-								</HrefLinks>
-							</li>
-						</Link>
-					)}
-					{decoded?.user?.role === "PATIENT" && (
-						<Link to="/pharmacists" className="link">
-							<li style={linkItems}>
-								<HrefLinks>
-									<FaMedkit />
+					<MenuHolder>
+						<MenuList>
+							{(decoded?.user?.role === "PHARMACIST" ||
+								decoded?.user?.role === "PHYSICIAN") && (
+								<Link to="/patients" className="link">
+									<li style={linkItems}>
+										<HrefLinks>
+											<FaUser />
+											<span
+												style={{
+													marginLeft: "8px",
+												}}
+											>
+												Patients
+											</span>
+										</HrefLinks>
+									</li>
+								</Link>
+							)}
+							{decoded?.user?.role === "PATIENT" && (
+								<Link to="/physicians" className="link">
+									<li style={linkItems}>
+										<HrefLinks>
+											<FaUserMd />
 
-									<span
-										style={{
-											marginLeft: "8px",
-										}}
-									>
-										Pharmacist
-									</span>
-								</HrefLinks>
-							</li>
-						</Link>
-					)}
-					{decoded?.user?.role === "PATIENT" && (
-						<Link to="/results" className="link">
-							<li style={linkItems}>
-								<HrefLinks>
-									<FaFileMedical />
+											<span
+												style={{
+													marginLeft: "8px",
+												}}
+											>
+												Physicians
+											</span>
+										</HrefLinks>
+									</li>
+								</Link>
+							)}
+							{decoded?.user?.role === "PATIENT" && (
+								<Link to="/pharmacists" className="link">
+									<li style={linkItems}>
+										<HrefLinks>
+											<FaMedkit />
 
-									<span
-										style={{
-											marginLeft: "8px",
-										}}
-									>
-										Results
-									</span>
-								</HrefLinks>
-							</li>
-						</Link>
-					)}
+											<span
+												style={{
+													marginLeft: "8px",
+												}}
+											>
+												Pharmacist
+											</span>
+										</HrefLinks>
+									</li>
+								</Link>
+							)}
+							{decoded?.user?.role === "PATIENT" && (
+								<Link to="/results" className="link">
+									<li style={linkItems}>
+										<HrefLinks>
+											<FaFileMedical />
 
-					{decoded?.user?.role === "PHARMACIST" && (
-						<Link to="/medecines" className="link">
-							<li style={linkItems}>
-								<HrefLinks>
-									<FaListAlt />
+											<span
+												style={{
+													marginLeft: "8px",
+												}}
+											>
+												Results
+											</span>
+										</HrefLinks>
+									</li>
+								</Link>
+							)}
 
-									<span
-										style={{
-											marginLeft: "8px",
-										}}
-									>
-										Upload Medicines
-									</span>
-								</HrefLinks>
-							</li>
-						</Link>
-					)}
-				</MenuList>
-			</MenuHolder>
-			<hr
-				style={{
-					borderTop: "1px solid #ebeae8",
-					width: "80%",
-				}}
-			/>
+							{decoded?.user?.role === "PHARMACIST" && (
+								<Link to="/medecines" className="link">
+									<li style={linkItems}>
+										<HrefLinks>
+											<FaListAlt />
 
-			<div style={{ fontWeight: "bold", padding: 10, color: "#363535" }}>
-				Meet the team
-			</div>
-			<FloatingImages />
-			<Categories />
+											<span
+												style={{
+													marginLeft: "8px",
+												}}
+											>
+												Upload Medicines
+											</span>
+										</HrefLinks>
+									</li>
+								</Link>
+							)}
+						</MenuList>
+					</MenuHolder>
+					<hr
+						style={{
+							borderTop: "1px solid #ebeae8",
+							width: "80%",
+						}}
+					/>
+
+					<div
+						style={{
+							fontWeight: "bold",
+							padding: 10,
+							color: "#363535",
+						}}
+					>
+						Meet the team
+					</div>
+					<FloatingImages />
+					<Categories />
+				</>
+			)}
 		</SideBarContainer>
 	);
 }

@@ -7,9 +7,11 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../utils/requestMethod";
 import { Editor } from "@tinymce/tinymce-react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../../utils/apiCalls";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ConsultationPage() {
 	const { id } = useParams();
@@ -54,7 +56,9 @@ function ConsultationPage() {
 				consultation: consultation.replace(/<\/?p>/g, ""),
 				physicianId,
 			});
+			toast.success("consultation Saved");
 		} catch (error) {
+			toast.error("failed");
 			console.error(error);
 		}
 	};
@@ -63,247 +67,250 @@ function ConsultationPage() {
 	};
 
 	return (
-		<ConsContainer>
-			<ConstHeader>
-				<div style={{ position: "relative" }}>
-					<input
-						placeholder="Search"
-						style={{
-							padding: "12px",
-							marginTop: "20px",
-							marginLeft: "20px",
-							border: "none",
-							backgroundColor: "#f5f5f5",
-							borderRadius: "10px",
-							width: "200px",
-							textAlign: "right",
-						}}
-					/>
-					<div
-						style={{
-							position: "absolute",
-							top: "40%",
-							left: "15%",
-						}}
-					>
-						<FaSearch style={{ color: "#8a8998" }} />
+		<>
+			<ToastContainer />
+			<ConsContainer>
+				<ConstHeader>
+					<div style={{ position: "relative" }}>
+						<input
+							placeholder="Search"
+							style={{
+								padding: "12px",
+								marginTop: "20px",
+								marginLeft: "20px",
+								border: "none",
+								backgroundColor: "#f5f5f5",
+								borderRadius: "10px",
+								width: "200px",
+								textAlign: "right",
+							}}
+						/>
+						<div
+							style={{
+								position: "absolute",
+								top: "40%",
+								left: "15%",
+							}}
+						>
+							<FaSearch style={{ color: "#8a8998" }} />
+						</div>
 					</div>
-				</div>
 
-				<div style={{ display: "flex" }}>
-					<div style={{ padding: "15px" }}>
-					<Link to="/">
-							<button
-								onClick={() => handleClick()}
-								style={{
-									padding: "8px",
-									borderRadius: "10px",
-									border: "2px solid #8a8998",
-									color: "#9F76FC",
-									fontWeight: "bold",
-								}}
-							>
-								Logout
-							</button>
-						</Link>
-					</div>
-				</div>
-			</ConstHeader>
-			<InfosWrapper>
-				<div
-					style={{
-						padding: "2%",
-						fontWeight: "bold",
-						fontSize: 26,
-					}}
-				>
-					Patient Info
-				</div>
-				<div style={{ display: "flex", marginLeft: "2%" }}>
-					<FaHome style={{ color: "#8a8998" }} />
-					<div style={{ marginLeft: "5px", color: "#8a8998" }}>
-						Home
-					</div>
-					<div style={{ marginLeft: "10px", color: "#8a8998" }}>
-						{">"}
-					</div>
-					<div
-						style={{
-							marginLeft: "10px",
-							color: "#8a8998",
-						}}
-					>
-						Patients List
-					</div>
-					<div style={{ marginLeft: "10px", color: "#8a8998" }}>
-						{">"}
-					</div>
-					<div
-						style={{
-							marginLeft: "10px",
-							color: "#9F76FC",
-							fontWeight: "bold",
-						}}
-					>
-						Infos
-					</div>
-				</div>
-
-				<div
-					style={{
-						height: "80%",
-						backgroundColor: "#ffffff",
-						margin: "2%",
-						borderRadius: "20px",
-
-						position: "relative",
-					}}
-				>
 					<div style={{ display: "flex" }}>
-						<div
-							style={{
-								width: "60%",
-								padding: "1%",
-							}}
-						>
-							<div>
-								<div
+						<div style={{ padding: "15px" }}>
+							<Link to="/">
+								<button
+									onClick={() => handleClick()}
 									style={{
-										padding: "2%",
-										marginLeft: "2%",
-										fontWeight: "bold",
-										fontSize: 16,
-										color: "#595958",
-									}}
-								>
-									Record Id
-								</div>
-								<div>
-									<input
-										placeholder={id}
-										style={{
-											padding: "12px",
-											marginLeft: "20px",
-											border: "1px solid #e3e3e3",
-											backgroundColor: "#ffffff",
-											borderRadius: "10px",
-											width: "80%",
-										}}
-									/>
-								</div>
-							</div>
-							<div>
-								<div
-									style={{
-										padding: "2%",
-										marginLeft: "2%",
-										fontWeight: "bold",
-										fontSize: 16,
-										color: "#595958",
-									}}
-								>
-									Symptoms
-								</div>
-								<div>
-									<input
-										value={data?.symptoms}
-										style={{
-											padding: "12px",
-											marginLeft: "20px",
-											border: "1px solid #e3e3e3",
-											backgroundColor: "#ffffff",
-											borderRadius: "10px",
-											width: "80%",
-										}}
-									/>
-								</div>
-							</div>
-							<div>
-								<div
-									style={{
-										padding: "2%",
-										marginLeft: "2%",
-										fontWeight: "bold",
-										fontSize: 16,
-										color: "#595958",
-									}}
-								>
-									Consultation
-								</div>
-								<div
-									style={{
-										padding: "12px",
-										marginLeft: "20px",
-										border: "1px solid #e3e3e3",
-										backgroundColor: "#ffffff",
+										padding: "8px",
 										borderRadius: "10px",
-										width: "80%",
+										border: "2px solid #8a8998",
+										color: "#9F76FC",
+										fontWeight: "bold",
 									}}
 								>
-									<Editor
-										apiKey="edqediiu06b35lfua2e3m1l7dcs0b6qs4x41ixzenbmbto3j"
-										initialValue="<p>Type consultation here</p>"
-										init={{
-											height: 250,
-											plugins:
-												"advlist autolink lists link image charmap print preview",
-											toolbar:
-												"bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image",
-											menubar: false,
-											content_css: "./custom.css",
-										}}
-										onEditorChange={handleEditorChange}
-									/>
-								</div>
-							</div>
+									Logout
+								</button>
+							</Link>
 						</div>
 					</div>
+				</ConstHeader>
+				<InfosWrapper>
 					<div
 						style={{
-							position: "absolute",
-							right: "2%",
-							bottom: "3%",
+							padding: "2%",
+							fontWeight: "bold",
+							fontSize: 26,
 						}}
 					>
+						Patient Info
+					</div>
+					<div style={{ display: "flex", marginLeft: "2%" }}>
+						<FaHome style={{ color: "#8a8998" }} />
+						<div style={{ marginLeft: "5px", color: "#8a8998" }}>
+							Home
+						</div>
+						<div style={{ marginLeft: "10px", color: "#8a8998" }}>
+							{">"}
+						</div>
 						<div
 							style={{
-								display: "flex",
-								justifyContent: "center",
-								gap: "10px",
+								marginLeft: "10px",
+								color: "#8a8998",
 							}}
 						>
-							<button
-								onClick={() => {
-									onSaveConsultation();
-								}}
-								style={{
-									backgroundColor: "#9F76FC",
-									color: "#fff",
-									border: "none",
-									padding: "10px 20px",
-									cursor: "pointer",
-									borderRadius: "10px",
-								}}
-							>
-								Submit
-							</button>
-							<button
-								style={{
-									backgroundColor: "#fff",
-									color: "#000",
-									border: "1px solid #000",
-									padding: "10px 20px",
-									cursor: "pointer",
-									borderRadius: "10px",
-								}}
-							>
-								Cancel
-							</button>
+							Patients List
+						</div>
+						<div style={{ marginLeft: "10px", color: "#8a8998" }}>
+							{">"}
+						</div>
+						<div
+							style={{
+								marginLeft: "10px",
+								color: "#9F76FC",
+								fontWeight: "bold",
+							}}
+						>
+							Infos
 						</div>
 					</div>
-				</div>
-			</InfosWrapper>
-		</ConsContainer>
+
+					<div
+						style={{
+							height: "80%",
+							backgroundColor: "#ffffff",
+							margin: "2%",
+							borderRadius: "20px",
+
+							position: "relative",
+						}}
+					>
+						<div style={{ display: "flex" }}>
+							<div
+								style={{
+									width: "60%",
+									padding: "1%",
+								}}
+							>
+								<div>
+									<div
+										style={{
+											padding: "2%",
+											marginLeft: "2%",
+											fontWeight: "bold",
+											fontSize: 16,
+											color: "#595958",
+										}}
+									>
+										Record Id
+									</div>
+									<div>
+										<input
+											placeholder={id}
+											style={{
+												padding: "12px",
+												marginLeft: "20px",
+												border: "1px solid #e3e3e3",
+												backgroundColor: "#ffffff",
+												borderRadius: "10px",
+												width: "80%",
+											}}
+										/>
+									</div>
+								</div>
+								<div>
+									<div
+										style={{
+											padding: "2%",
+											marginLeft: "2%",
+											fontWeight: "bold",
+											fontSize: 16,
+											color: "#595958",
+										}}
+									>
+										Symptoms
+									</div>
+									<div>
+										<input
+											value={data?.symptoms}
+											style={{
+												padding: "12px",
+												marginLeft: "20px",
+												border: "1px solid #e3e3e3",
+												backgroundColor: "#ffffff",
+												borderRadius: "10px",
+												width: "80%",
+											}}
+										/>
+									</div>
+								</div>
+								<div>
+									<div
+										style={{
+											padding: "2%",
+											marginLeft: "2%",
+											fontWeight: "bold",
+											fontSize: 16,
+											color: "#595958",
+										}}
+									>
+										Consultation
+									</div>
+									<div
+										style={{
+											padding: "12px",
+											marginLeft: "20px",
+											border: "1px solid #e3e3e3",
+											backgroundColor: "#ffffff",
+											borderRadius: "10px",
+											width: "80%",
+										}}
+									>
+										<Editor
+											apiKey="edqediiu06b35lfua2e3m1l7dcs0b6qs4x41ixzenbmbto3j"
+											initialValue="<p>Type consultation here</p>"
+											init={{
+												height: 250,
+												plugins:
+													"advlist autolink lists link image charmap print preview",
+												toolbar:
+													"bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | link image",
+												menubar: false,
+												content_css: "./custom.css",
+											}}
+											onEditorChange={handleEditorChange}
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div
+							style={{
+								position: "absolute",
+								right: "2%",
+								bottom: "3%",
+							}}
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									gap: "10px",
+								}}
+							>
+								<button
+									onClick={() => {
+										onSaveConsultation();
+									}}
+									style={{
+										backgroundColor: "#9F76FC",
+										color: "#fff",
+										border: "none",
+										padding: "10px 20px",
+										cursor: "pointer",
+										borderRadius: "10px",
+									}}
+								>
+									Submit
+								</button>
+								<button
+									style={{
+										backgroundColor: "#fff",
+										color: "#000",
+										border: "1px solid #000",
+										padding: "10px 20px",
+										cursor: "pointer",
+										borderRadius: "10px",
+									}}
+								>
+									Cancel
+								</button>
+							</div>
+						</div>
+					</div>
+				</InfosWrapper>
+			</ConsContainer>
+		</>
 	);
 }
 

@@ -6,6 +6,10 @@ import { login } from "../../utils/apiCalls";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const style = {
 	position: "absolute",
@@ -26,7 +30,7 @@ function LoginForm() {
 	const [password, setPassword] = useState();
 	const [open, setOpen] = useState(true);
 	const [role, setRole] = useState();
-	const handleOpen = () => setOpen(true);
+	const user = useSelector((state) => state.user);
 	const handleClose = () => setOpen(false);
 	const dispatch = useDispatch();
 
@@ -41,9 +45,17 @@ function LoginForm() {
 		setRole(e.target.value);
 		handleClose();
 	};
+	let showed;
+	if (user?.currentUser) {
+		toast.success("login successfully");
+	} else if (user?.error && showed == 1) {
+		toast.error("invalid credentials");
+		showed++;
+	}
 
 	return (
 		<>
+			<ToastContainer />
 			<Modal
 				open={open}
 				onClose={handleClose}
@@ -63,13 +75,22 @@ function LoginForm() {
 						id="role-dropdown"
 						onChange={handleRoleChange}
 						value={role}
-						style={{ padding: "10px 30px" }}
+						style={{
+							padding: "10px 30px",
+							borderRadius: "10px",
+							marginTop: "2%",
+						}}
 					>
 						<option value="">Select role</option>
 						<option value="patient">Patient</option>
-						<option value="pharmacist">Pharmacist</option>
 						<option value="physician">Physician</option>
+						<option value="pharmacist">Pharmacist</option>
 					</select>
+					<div style={{ marginTop: "5%", color: "#9F76FC" }}>
+						<Link to="/signup" style={{ textDecoration: "none" }}>
+							if you don't have account Click here to SignUp
+						</Link>
+					</div>
 				</Box>
 			</Modal>
 			<div

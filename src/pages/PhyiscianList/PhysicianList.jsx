@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../../utils/apiCalls";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PhysicianList = () => {
 	const [data, setData] = useState(null);
@@ -52,9 +54,11 @@ const PhysicianList = () => {
 					symptoms,
 				}
 			);
+
+			toast.success("Added symptoms");
 			setRecordId(data.data);
 		} catch (error) {
-			console.error(error);
+			toast.error("creation failed");
 		}
 	};
 
@@ -64,7 +68,9 @@ const PhysicianList = () => {
 				`${BASE_URL}/medical/medicalRecords/assignDoctor`,
 				{ id: recordId, patientId, physicianId }
 			);
+			toast.success("doctor assigned");
 		} catch (error) {
+			toast.success("Create medical record first");
 			console.error(error);
 		}
 	};
@@ -108,161 +114,144 @@ const PhysicianList = () => {
 	};
 
 	return (
-		<PhysicianListContainer>
-			{/* Header */}
-			<PhysicianListHeader>
-				<div style={{ position: "relative" }}>
-					<input
-						placeholder="Search"
-						style={{
-							padding: "12px",
-							marginTop: "20px",
-							marginLeft: "20px",
-							border: "none",
-							backgroundColor: "#f5f5f5",
-							borderRadius: "10px",
-							width: "200px",
-							textAlign: "right",
-						}}
-					/>
-					<div
-						style={{
-							position: "absolute",
-							top: "40%",
-							left: "15%",
-						}}
-					>
-						<FaSearch style={{ color: "#8a8998" }} />
-					</div>
-				</div>
-
-				<div style={{ display: "flex" }}>
-					<div style={{ padding: "15px" }}>
-					<Link to="/">
-							<button
-								onClick={() => handleClick()}
-								style={{
-									padding: "8px",
-									borderRadius: "10px",
-									border: "2px solid #8a8998",
-									color: "#9F76FC",
-									fontWeight: "bold",
-								}}
-							>
-								Logout
-							</button>
-						</Link>
-					</div>
-				</div>
-			</PhysicianListHeader>
-
-			<div
-				style={{
-					height: "92%",
-					width: "100%",
-					backgroundColor: "#f8f4fc",
-				}}
-			>
-				{/* title */}
-				{/* <div
-					style={{
-						padding: "2%",
-						fontWeight: "bold",
-						fontSize: 26,
-					}}
-				>
-					Physicians List
-				</div> */}
-
-				{/* navigation */}
-				<div style={{ display: "flex", padding: "2%" }}>
-					<FaHome style={{ color: "#8a8998" }} />
-					<div style={{ marginLeft: "5px", color: "#8a8998" }}>
-						Home
-					</div>
-					<div style={{ marginLeft: "10px", color: "#8a8998" }}>
-						{">"}
-					</div>
-					<div
-						style={{
-							marginLeft: "10px",
-							color: "#9F76FC",
-							fontWeight: "bold",
-						}}
-					>
-						Physicians List
-					</div>
-				</div>
-
-				<div>
-					<div style={{ paddingLeft: "2%", fontWeight: "bold" }}>
-						Symptoms
-					</div>
-					<textarea
-						value={symptoms}
-						onChange={(e) => {
-							setSymptoms(e.target.value);
-						}}
-						style={{
-							padding: "30px",
-							marginTop: "10px",
-							marginLeft: "20px",
-							border: "none",
-							backgroundColor: "#fff",
-							borderRadius: "10px",
-							width: "200px",
-						}}
-					/>
-					<div
-						style={{
-							display: "flex",
-							paddingLeft: "2%",
-						}}
-					>
-						<button
-							onClick={() => {
-								onSave();
-								setSymptoms("");
-							}}
+		<>
+			<ToastContainer />
+			<PhysicianListContainer>
+				{/* Header */}
+				<PhysicianListHeader>
+					<div style={{ position: "relative" }}>
+						<input
+							placeholder="Search"
 							style={{
-								backgroundColor: "#ebeae8",
-								color: "#9F76FC",
+								padding: "12px",
+								marginTop: "20px",
+								marginLeft: "20px",
 								border: "none",
-								padding: "10px 20px",
-								cursor: "pointer",
+								backgroundColor: "#f5f5f5",
 								borderRadius: "10px",
-								fontWeight: "bold",
-								marginTop: "1%",
+								width: "200px",
+								textAlign: "right",
+							}}
+						/>
+						<div
+							style={{
+								position: "absolute",
+								top: "40%",
+								left: "15%",
 							}}
 						>
-							Submit
-						</button>
+							<FaSearch style={{ color: "#8a8998" }} />
+						</div>
 					</div>
-				</div>
 
-
+					<div style={{ display: "flex" }}>
+						<div style={{ padding: "15px" }}>
+							<Link to="/">
+								<button
+									onClick={() => handleClick()}
+									style={{
+										padding: "8px",
+										borderRadius: "10px",
+										border: "2px solid #8a8998",
+										color: "#9F76FC",
+										fontWeight: "bold",
+									}}
+								>
+									Logout
+								</button>
+							</Link>
+						</div>
+					</div>
+				</PhysicianListHeader>
 
 				<div
 					style={{
-						height: "40%",
-						backgroundColor: "#ffffff",
-						margin: "2%",
-						borderRadius: "20px",
+						height: "92%",
+						width: "100%",
+						backgroundColor: "#f8f4fc",
 					}}
 				>
-					<div
-						style={{
-							padding: "1%",
-							fontWeight: "bold",
-							fontSize: 18,
-						}}
-					>
-						Physicians List
+					{/* navigation */}
+					<div style={{ display: "flex", padding: "2%" }}>
+						<FaHome style={{ color: "#8a8998" }} />
+						<div style={{ marginLeft: "5px", color: "#8a8998" }}>
+							Home
+						</div>
 					</div>
-					<DataTable columns={columns} data={data || []}></DataTable>
+
+					<div>
+						<div style={{ paddingLeft: "2%", fontWeight: "bold" }}>
+							Symptoms
+						</div>
+						<textarea
+							value={symptoms}
+							onChange={(e) => {
+								setSymptoms(e.target.value);
+							}}
+							style={{
+								padding: "30px",
+								marginTop: "10px",
+								marginLeft: "20px",
+								border: "none",
+								backgroundColor: "#fff",
+								borderRadius: "10px",
+								width: "200px",
+							}}
+						/>
+						<div
+							style={{
+								display: "flex",
+								paddingLeft: "2%",
+							}}
+						>
+							<button
+								onClick={() => {
+									onSave();
+									setSymptoms("");
+								}}
+								style={{
+									backgroundColor: "#ebeae8",
+									color: "#9F76FC",
+									border: "none",
+									padding: "10px 20px",
+									cursor: "pointer",
+									borderRadius: "10px",
+									fontWeight: "bold",
+									marginTop: "1%",
+								}}
+							>
+								Submit
+							</button>
+						</div>
+					</div>
+
+					{recordId && (
+						<div
+							style={{
+								height: "40%",
+								backgroundColor: "#ffffff",
+								margin: "2%",
+								borderRadius: "20px",
+							}}
+						>
+							<div
+								style={{
+									padding: "1%",
+									fontWeight: "bold",
+									fontSize: 18,
+								}}
+							>
+								Physicians List
+							</div>
+							<DataTable
+								columns={columns}
+								data={data || []}
+							></DataTable>
+						</div>
+					)}
 				</div>
-			</div>
-		</PhysicianListContainer>
+			</PhysicianListContainer>
+		</>
 	);
 };
 

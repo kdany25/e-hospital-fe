@@ -21,6 +21,8 @@ import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../../utils/apiCalls";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function PharmacistPrescription() {
 	const { id } = useParams();
@@ -81,8 +83,11 @@ function PharmacistPrescription() {
 				medPrice,
 				medExpiration,
 			})
-			.then((res) => {})
+			.then((res) => {
+				toast.success("Assigned medecine successfully");
+			})
 			.catch((error) => {
+				toast.error("Failed, try again");
 				console.log(error);
 			});
 	};
@@ -92,289 +97,295 @@ function PharmacistPrescription() {
 	};
 
 	return (
-		<PPContainer>
-			<PPHeader>
-				<div style={{ position: "relative" }}>
-					<input
-						placeholder="Search"
-						style={{
-							padding: "12px",
-							marginTop: "20px",
-							marginLeft: "20px",
-							border: "none",
-							backgroundColor: "#f5f5f5",
-							borderRadius: "10px",
-							width: "200px",
-							textAlign: "right",
-						}}
-					/>
-					<div
-						style={{
-							position: "absolute",
-							top: "40%",
-							left: "15%",
-						}}
-					>
-						<FaSearch style={{ color: "#8a8998" }} />
+		<>
+			<ToastContainer />
+			<PPContainer>
+				<PPHeader>
+					<div style={{ position: "relative" }}>
+						<input
+							placeholder="Search"
+							style={{
+								padding: "12px",
+								marginTop: "20px",
+								marginLeft: "20px",
+								border: "none",
+								backgroundColor: "#f5f5f5",
+								borderRadius: "10px",
+								width: "200px",
+								textAlign: "right",
+							}}
+						/>
+						<div
+							style={{
+								position: "absolute",
+								top: "40%",
+								left: "15%",
+							}}
+						>
+							<FaSearch style={{ color: "#8a8998" }} />
+						</div>
 					</div>
-				</div>
 
-				<div style={{ display: "flex" }}>
-					<div style={{ padding: "20px" }}>
-					<Link to="/">
-							<button
-								onClick={() => handleClick()}
-								style={{
-									padding: "8px",
-									borderRadius: "10px",
-									border: "2px solid #8a8998",
-									color: "#9F76FC",
-									fontWeight: "bold",
-								}}
-							>
-								Logout
-							</button>
-						</Link>
+					<div style={{ display: "flex" }}>
+						<div style={{ padding: "20px" }}>
+							<Link to="/">
+								<button
+									onClick={() => handleClick()}
+									style={{
+										padding: "8px",
+										borderRadius: "10px",
+										border: "2px solid #8a8998",
+										color: "#9F76FC",
+										fontWeight: "bold",
+									}}
+								>
+									Logout
+								</button>
+							</Link>
+						</div>
 					</div>
-				</div>
-			</PPHeader>
-			<PPWrapper>
-				<div
-					style={{
-						padding: "2%",
-						fontWeight: "bold",
-						fontSize: 26,
-					}}
-				>
-					prescription
-				</div>
-				<div style={{ display: "flex", marginLeft: "2%" }}>
-					<FaHome style={{ color: "#8a8998" }} />
-					<div style={{ marginLeft: "5px", color: "#8a8998" }}>
-						Home
-					</div>
-					<div style={{ marginLeft: "10px", color: "#8a8998" }}>
-						{">"}
-					</div>
+				</PPHeader>
+				<PPWrapper>
 					<div
 						style={{
-							marginLeft: "10px",
-							color: "#8a8998",
-						}}
-					>
-						Patients List
-					</div>
-					<div style={{ marginLeft: "10px", color: "#8a8998" }}>
-						{">"}
-					</div>
-					<div
-						style={{
-							marginLeft: "10px",
-							color: "#9F76FC",
+							padding: "2%",
 							fontWeight: "bold",
+							fontSize: 26,
 						}}
 					>
 						prescription
 					</div>
-				</div>
-				<div
-					style={{
-						height: "80%",
-						backgroundColor: "#ffffff",
-						margin: "2%",
-						borderRadius: "20px",
-
-						position: "relative",
-					}}
-				>
-					<div style={{ padding: "2%", fontWeight: "bold" }}>
-						Record Id: {id}
-					</div>
-					<div
-						style={{
-							display: "flex",
-							fontWeight: "bold",
-							marginLeft: "2%",
-						}}
-					>
-						<FaCalendarAlt color="#8a8998" fontSize={18} />
+					<div style={{ display: "flex", marginLeft: "2%" }}>
+						<FaHome style={{ color: "#8a8998" }} />
+						<div style={{ marginLeft: "5px", color: "#8a8998" }}>
+							Home
+						</div>
+						<div style={{ marginLeft: "10px", color: "#8a8998" }}>
+							{">"}
+						</div>
 						<div
 							style={{
-								marginLeft: "5px",
+								marginLeft: "10px",
+								color: "#8a8998",
 							}}
 						>
-							{today.toDateString()}
+							Patients List
+						</div>
+						<div style={{ marginLeft: "10px", color: "#8a8998" }}>
+							{">"}
+						</div>
+						<div
+							style={{
+								marginLeft: "10px",
+								color: "#9F76FC",
+								fontWeight: "bold",
+							}}
+						>
+							prescription
 						</div>
 					</div>
-					<hr
-						style={{
-							borderTop: "1px solid #ebeae8",
-							width: "96%",
-							marginTop: "1%",
-						}}
-					/>
-
-					{/* infos */}
 					<div
 						style={{
-							display: "flex",
-							paddingLeft: "2%",
-							paddingRight: "2%",
-							justifyContent: "space-between",
+							height: "80%",
+							backgroundColor: "#ffffff",
+							margin: "2%",
+							borderRadius: "20px",
+
+							position: "relative",
 						}}
 					>
+						<div style={{ padding: "2%", fontWeight: "bold" }}>
+							Record Id: {id}
+						</div>
+						<div
+							style={{
+								display: "flex",
+								fontWeight: "bold",
+								marginLeft: "2%",
+							}}
+						>
+							<FaCalendarAlt color="#8a8998" fontSize={18} />
+							<div
+								style={{
+									marginLeft: "5px",
+								}}
+							>
+								{today.toDateString()}
+							</div>
+						</div>
+						<hr
+							style={{
+								borderTop: "1px solid #ebeae8",
+								width: "96%",
+								marginTop: "1%",
+							}}
+						/>
+
+						{/* infos */}
 						<div
 							style={{
 								display: "flex",
 								paddingLeft: "2%",
-								width: "45%",
+								paddingRight: "2%",
+								justifyContent: "space-between",
 							}}
 						>
 							<div
 								style={{
-									backgroundColor: "#ebeae8",
-									height: "50px",
-									width: "50px",
 									display: "flex",
-									justifyContent: "center",
-									alignContent: "center",
-									alignItems: "center",
-									borderRadius: "50%",
-									marginTop: "5px",
-								}}
-							>
-								<FaUser />
-							</div>
-							<div
-								style={{
-									width: "50%",
-									marginTop: "1%",
-									marginLeft: "1%",
+									paddingLeft: "2%",
+									width: "45%",
 								}}
 							>
 								<div
 									style={{
-										fontWeight: "bold",
-										padding: "1%",
+										backgroundColor: "#ebeae8",
+										height: "50px",
+										width: "50px",
+										display: "flex",
+										justifyContent: "center",
+										alignContent: "center",
+										alignItems: "center",
+										borderRadius: "50%",
+										marginTop: "5px",
 									}}
 								>
-									Patient
+									<FaUser />
 								</div>
-								<div style={{ color: "#8a8998" }}>
-									<div style={{ padding: "1%" }}>
-										Patient Id: {data?.patientId}
+								<div
+									style={{
+										width: "50%",
+										marginTop: "1%",
+										marginLeft: "1%",
+									}}
+								>
+									<div
+										style={{
+											fontWeight: "bold",
+											padding: "1%",
+										}}
+									>
+										Patient
+									</div>
+									<div style={{ color: "#8a8998" }}>
+										<div style={{ padding: "1%" }}>
+											Patient Id: {data?.patientId}
+										</div>
+									</div>
+								</div>
+							</div>
+							<div
+								style={{
+									display: "flex",
+									paddingLeft: "2%",
+									width: "45%",
+								}}
+							>
+								<div
+									style={{
+										backgroundColor: "#ebeae8",
+										height: "50px",
+										width: "50px",
+										display: "flex",
+										justifyContent: "center",
+										alignContent: "center",
+										alignItems: "center",
+										borderRadius: "50%",
+										marginTop: "5px",
+									}}
+								>
+									<FaNotesMedical />
+								</div>
+								<div
+									style={{
+										width: "90%",
+										marginTop: "1%",
+										marginLeft: "1%",
+									}}
+								>
+									<div
+										style={{
+											fontWeight: "bold",
+											marginLeft: "1%",
+										}}
+									>
+										Consultation
+									</div>
+									<div
+										style={{
+											padding: "1%",
+											color: "#8a8998",
+										}}
+									>
+										{data?.consultation}
 									</div>
 								</div>
 							</div>
 						</div>
+						<hr
+							style={{
+								borderTop: "1px solid #ebeae8",
+								width: "96%",
+								marginTop: "2%",
+							}}
+						/>
+						<div style={{ width: "30%", padding: "2%" }}>
+							<Autocomplete
+								id="medicine-selector"
+								options={medecines || []}
+								getOptionLabel={(option) => option.medName}
+								value={selectedMedicine}
+								onChange={handleMedicineChange}
+								renderInput={(params) => (
+									<TextField
+										{...params}
+										label="Select a medicine"
+										variant="outlined"
+									/>
+								)}
+								disablePortal
+								isOptionEqualToValue={(option, value) =>
+									option.medName === value.medName
+								}
+							/>
+						</div>
 						<div
 							style={{
 								display: "flex",
-								paddingLeft: "2%",
-								width: "45%",
+								padding: "2%",
+								gap: "10px",
 							}}
 						>
-							<div
+							<button
+								onClick={() => assignMedecine()}
 								style={{
-									backgroundColor: "#ebeae8",
-									height: "50px",
-									width: "50px",
-									display: "flex",
-									justifyContent: "center",
-									alignContent: "center",
-									alignItems: "center",
-									borderRadius: "50%",
-									marginTop: "5px",
+									backgroundColor: "#9F76FC",
+									color: "#fff",
+									border: "none",
+									padding: "10px 20px",
+									cursor: "pointer",
+									borderRadius: "10px",
 								}}
 							>
-								<FaNotesMedical />
-							</div>
-							<div
+								Submit
+							</button>
+							<button
 								style={{
-									width: "90%",
-									marginTop: "1%",
-									marginLeft: "1%",
+									backgroundColor: "#fff",
+									color: "#000",
+									border: "1px solid #8a8998",
+									padding: "10px 20px",
+									cursor: "pointer",
+									borderRadius: "10px",
 								}}
 							>
-								<div
-									style={{
-										fontWeight: "bold",
-										marginLeft: "1%",
-									}}
-								>
-									Consultation
-								</div>
-								<div
-									style={{ padding: "1%", color: "#8a8998" }}
-								>
-									{data?.consultation}
-								</div>
-							</div>
+								Cancel
+							</button>
 						</div>
 					</div>
-					<hr
-						style={{
-							borderTop: "1px solid #ebeae8",
-							width: "96%",
-							marginTop: "2%",
-						}}
-					/>
-					<div style={{ width: "30%", padding: "2%" }}>
-						<Autocomplete
-							id="medicine-selector"
-							options={medecines || []}
-							getOptionLabel={(option) => option.medName}
-							value={selectedMedicine}
-							onChange={handleMedicineChange}
-							renderInput={(params) => (
-								<TextField
-									{...params}
-									label="Select a medicine"
-									variant="outlined"
-								/>
-							)}
-							disablePortal
-							isOptionEqualToValue={(option, value) =>
-								option.medName === value.medName
-							}
-						/>
-					</div>
-					<div
-						style={{
-							display: "flex",
-							padding: "2%",
-							gap: "10px",
-						}}
-					>
-						<button
-							onClick={() => assignMedecine()}
-							style={{
-								backgroundColor: "#9F76FC",
-								color: "#fff",
-								border: "none",
-								padding: "10px 20px",
-								cursor: "pointer",
-								borderRadius: "10px",
-							}}
-						>
-							Submit
-						</button>
-						<button
-							style={{
-								backgroundColor: "#fff",
-								color: "#000",
-								border: "1px solid #8a8998",
-								padding: "10px 20px",
-								cursor: "pointer",
-								borderRadius: "10px",
-							}}
-						>
-							Cancel
-						</button>
-					</div>
-				</div>
-			</PPWrapper>
-		</PPContainer>
+				</PPWrapper>
+			</PPContainer>
+		</>
 	);
 }
 

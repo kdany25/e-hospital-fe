@@ -34,7 +34,10 @@ const Login = () => {
 							if you don't have an account
 							<br />
 							You can{" "}
-							<Link to="/signup">
+							<Link
+								to="/signup"
+								style={{ textDecoration: "none" }}
+							>
 								<span
 									style={{
 										color: "#9f76fc",

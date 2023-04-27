@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOutUser } from "../../utils/apiCalls";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function PharmacistList() {
 	const [data, setData] = useState(null);
@@ -67,8 +69,9 @@ function PharmacistList() {
 				`${BASE_URL}/medical/medicalRecords/assignPharmacist`,
 				{ id: recordId, patientId, pharmacistId }
 			);
+			toast.success("Assigned pharmacist");
 		} catch (error) {
-			console.error(error);
+			toast.error("Create medical record first");
 		}
 	};
 
@@ -109,113 +112,119 @@ function PharmacistList() {
 		logOutUser(states, dispatch);
 	};
 	return (
-		<PharmacistListContainer>
-			{/* Header */}
-			<PharmacistListHeader>
-				<div style={{ position: "relative" }}>
-					<input
-						placeholder="Search"
-						style={{
-							padding: "12px",
-							marginTop: "20px",
-							marginLeft: "20px",
-							border: "none",
-							backgroundColor: "#f5f5f5",
-							borderRadius: "10px",
-							width: "200px",
-							textAlign: "right",
-						}}
-					/>
-					<div
-						style={{
-							position: "absolute",
-							top: "40%",
-							left: "15%",
-						}}
-					>
-						<FaSearch style={{ color: "#8a8998" }} />
+		<>
+			<ToastContainer />
+			<PharmacistListContainer>
+				{/* Header */}
+				<PharmacistListHeader>
+					<div style={{ position: "relative" }}>
+						<input
+							placeholder="Search"
+							style={{
+								padding: "12px",
+								marginTop: "20px",
+								marginLeft: "20px",
+								border: "none",
+								backgroundColor: "#f5f5f5",
+								borderRadius: "10px",
+								width: "200px",
+								textAlign: "right",
+							}}
+						/>
+						<div
+							style={{
+								position: "absolute",
+								top: "40%",
+								left: "15%",
+							}}
+						>
+							<FaSearch style={{ color: "#8a8998" }} />
+						</div>
 					</div>
-				</div>
 
-				<div style={{ display: "flex" }}>
-					<div style={{ padding: "15px" }}>
-						<Link to="/">
-							<button
-								onClick={() => handleClick()}
-								style={{
-									padding: "8px",
-									borderRadius: "10px",
-									border: "2px solid #8a8998",
-									color: "#9F76FC",
-									fontWeight: "bold",
-								}}
-							>
-								Logout
-							</button>
-						</Link>
+					<div style={{ display: "flex" }}>
+						<div style={{ padding: "15px" }}>
+							<Link to="/">
+								<button
+									onClick={() => handleClick()}
+									style={{
+										padding: "8px",
+										borderRadius: "10px",
+										border: "2px solid #8a8998",
+										color: "#9F76FC",
+										fontWeight: "bold",
+									}}
+								>
+									Logout
+								</button>
+							</Link>
+						</div>
 					</div>
-				</div>
-			</PharmacistListHeader>
+				</PharmacistListHeader>
 
-			<div
-				style={{
-					height: "92%",
-					width: "100%",
-					backgroundColor: "#f8f4fc",
-				}}
-			>
-				{/* title */}
 				<div
 					style={{
-						padding: "2%",
-						fontWeight: "bold",
-						fontSize: 26,
+						height: "92%",
+						width: "100%",
+						backgroundColor: "#f8f4fc",
 					}}
 				>
-					Pharmacist List
-				</div>
-
-				{/* navigation */}
-				<div style={{ display: "flex", marginLeft: "2%" }}>
-					<FaHome style={{ color: "#8a8998" }} />
-					<div style={{ marginLeft: "5px", color: "#8a8998" }}>
-						Home
-					</div>
-					<div style={{ marginLeft: "10px", color: "#8a8998" }}>
-						{">"}
-					</div>
+					{/* title */}
 					<div
 						style={{
-							marginLeft: "10px",
-							color: "#9F76FC",
+							padding: "2%",
 							fontWeight: "bold",
+							fontSize: 26,
 						}}
 					>
 						Pharmacist List
 					</div>
-				</div>
 
-				<div
-					style={{
-						height: "60%",
-						backgroundColor: "#ffffff",
-						margin: "2%",
-						borderRadius: "20px",
-					}}
-				>
+					{/* navigation */}
+					<div style={{ display: "flex", marginLeft: "2%" }}>
+						<FaHome style={{ color: "#8a8998" }} />
+						<div style={{ marginLeft: "5px", color: "#8a8998" }}>
+							Home
+						</div>
+						<div style={{ marginLeft: "10px", color: "#8a8998" }}>
+							{">"}
+						</div>
+						<div
+							style={{
+								marginLeft: "10px",
+								color: "#9F76FC",
+								fontWeight: "bold",
+							}}
+						>
+							Pharmacist List
+						</div>
+					</div>
+
 					<div
 						style={{
-							padding: "1%",
-							fontWeight: "bold",
-							fontSize: 18,
+							height: "60%",
+							backgroundColor: "#ffffff",
+							margin: "2%",
+							borderRadius: "20px",
 						}}
 					>
-						Pharmacist List
+						<div
+							style={{
+								padding: "1%",
+								fontWeight: "bold",
+								fontSize: 18,
+							}}
+						>
+							Pharmacist List
+						</div>
+						<DataTable
+							columns={columns}
+							data={data || []}
+						></DataTable>
 					</div>
-					<DataTable columns={columns} data={data || []}></DataTable>
 				</div>
-			</div>
-		</PharmacistListContainer>
+			</PharmacistListContainer>
+		</>
 	);
 }
 
