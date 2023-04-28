@@ -225,30 +225,28 @@ const PhysicianList = () => {
 						</div>
 					</div>
 
-					{recordId && (
+					<div
+						style={{
+							height: "40%",
+							backgroundColor: "#ffffff",
+							margin: "2%",
+							borderRadius: "20px",
+						}}
+					>
 						<div
 							style={{
-								height: "40%",
-								backgroundColor: "#ffffff",
-								margin: "2%",
-								borderRadius: "20px",
+								padding: "1%",
+								fontWeight: "bold",
+								fontSize: 18,
 							}}
 						>
-							<div
-								style={{
-									padding: "1%",
-									fontWeight: "bold",
-									fontSize: 18,
-								}}
-							>
-								Physicians List
-							</div>
-							<DataTable
-								columns={columns}
-								data={data || []}
-							></DataTable>
+							Physicians List
 						</div>
-					)}
+						<DataTable
+							columns={columns}
+							data={data || []}
+						></DataTable>
+					</div>
 				</div>
 			</PhysicianListContainer>
 		</>
