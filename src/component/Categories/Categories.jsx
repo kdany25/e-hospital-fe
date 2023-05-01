@@ -1,6 +1,6 @@
 import React from "react";
 
-function Categories() {
+const Categories = () => {
 	return (
 		<div style={{ marginTop: "32%" }}>
 			<hr
@@ -10,7 +10,7 @@ function Categories() {
 				}}
 			/>
 			<div style={{ fontWeight: "bold", padding: 10, color: "#363535" }}>
-				Doctors/Service
+				Doctor/Service
 			</div>
 			<div
 				style={{
@@ -102,6 +102,6 @@ function Categories() {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Categories;
