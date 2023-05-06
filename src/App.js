@@ -25,6 +25,7 @@ import ConsultationPage from "./pages/patientConsultationPage/ConsultationPage";
 import PharmacistPrescription from "./pages/Pharmacist-prescription/Pharmacist-Prescription";
 import PatientResult from "./pages/PatientResult/PatientResult";
 import Medecines from "./pages/AddMedicines/Medecines";
+import CountryInfos from "./pages/CountryInfos/CountryInfos";
 
 function App() {
 	let decoded;
@@ -41,7 +42,6 @@ function App() {
 							<SideBar />
 							{decoded?.user.role === "PATIENT" && (
 								<>
-									<Redirect to="/" />
 									<Route exact path="/">
 										<PhysicianList />
 									</Route>
@@ -58,7 +58,6 @@ function App() {
 							)}
 							{decoded?.user.role === "PHARMACIST" && (
 								<>
-									<Redirect to="/" />
 									<Route exact path="/">
 										<PatientList />
 									</Route>
@@ -75,7 +74,6 @@ function App() {
 							)}
 							{decoded?.user.role === "PHYSICIAN" && (
 								<>
-									<Redirect to="/" />
 									<Route exact path="/">
 										<PatientList />
 									</Route>
@@ -87,6 +85,9 @@ function App() {
 									</Route>
 								</>
 							)}
+							<Route exact path="/info">
+								<CountryInfos />
+							</Route>
 						</div>
 					</>
 				) : (

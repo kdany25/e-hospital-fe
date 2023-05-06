@@ -7,6 +7,8 @@ import {
 	logOutFailure,
 } from "../slice/AuthSlice";
 import { apiRequest } from "./requestMethod";
+import axios from "axios";
+const baseURL = "http://localhost:3001";
 
 //
 export const login = async (dispatch, user) => {
@@ -27,4 +29,9 @@ export const logOutUser = async (id, dispatch) => {
 	} catch (err) {
 		dispatch(logOutFailure());
 	}
+};
+
+export const getCountryInfo = async (country) => {
+	const response = await axios.get(`${baseURL}/soap?country=${country}`);
+	return response;
 };

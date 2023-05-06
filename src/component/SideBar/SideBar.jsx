@@ -129,6 +129,22 @@ function SideBar() {
 									</li>
 								</Link>
 							)}
+
+							<Link to="/info" className="link">
+								<li style={linkItems}>
+									<HrefLinks>
+										<FaListAlt />
+
+										<span
+											style={{
+												marginLeft: "8px",
+											}}
+										>
+											Get Country info
+										</span>
+									</HrefLinks>
+								</li>
+							</Link>
 						</MenuList>
 					</MenuHolder>
 					<hr
